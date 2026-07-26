@@ -9,38 +9,190 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkspaceRouteImport } from './routes/workspace'
+import { Route as NewRouteImport } from './routes/new'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkspaceValidateRouteImport } from './routes/workspace.validate'
+import { Route as WorkspaceUploadRouteImport } from './routes/workspace.upload'
+import { Route as WorkspaceRunRouteImport } from './routes/workspace.run'
+import { Route as WorkspaceReproduceRouteImport } from './routes/workspace.reproduce'
+import { Route as WorkspaceInspectRouteImport } from './routes/workspace.inspect'
+import { Route as WorkspaceExportRouteImport } from './routes/workspace.export'
+import { Route as WorkspaceConfigureRouteImport } from './routes/workspace.configure'
+import { Route as WorkspaceCompareRouteImport } from './routes/workspace.compare'
+import { Route as WorkspaceAnnotateRouteImport } from './routes/workspace.annotate'
 
+const WorkspaceRoute = WorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewRoute = NewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkspaceValidateRoute = WorkspaceValidateRouteImport.update({
+  id: '/validate',
+  path: '/validate',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceUploadRoute = WorkspaceUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceRunRoute = WorkspaceRunRouteImport.update({
+  id: '/run',
+  path: '/run',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceReproduceRoute = WorkspaceReproduceRouteImport.update({
+  id: '/reproduce',
+  path: '/reproduce',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceInspectRoute = WorkspaceInspectRouteImport.update({
+  id: '/inspect',
+  path: '/inspect',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceExportRoute = WorkspaceExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceConfigureRoute = WorkspaceConfigureRouteImport.update({
+  id: '/configure',
+  path: '/configure',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceCompareRoute = WorkspaceCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceAnnotateRoute = WorkspaceAnnotateRouteImport.update({
+  id: '/annotate',
+  path: '/annotate',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/new': typeof NewRoute
+  '/workspace': typeof WorkspaceRouteWithChildren
+  '/workspace/annotate': typeof WorkspaceAnnotateRoute
+  '/workspace/compare': typeof WorkspaceCompareRoute
+  '/workspace/configure': typeof WorkspaceConfigureRoute
+  '/workspace/export': typeof WorkspaceExportRoute
+  '/workspace/inspect': typeof WorkspaceInspectRoute
+  '/workspace/reproduce': typeof WorkspaceReproduceRoute
+  '/workspace/run': typeof WorkspaceRunRoute
+  '/workspace/upload': typeof WorkspaceUploadRoute
+  '/workspace/validate': typeof WorkspaceValidateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/new': typeof NewRoute
+  '/workspace': typeof WorkspaceRouteWithChildren
+  '/workspace/annotate': typeof WorkspaceAnnotateRoute
+  '/workspace/compare': typeof WorkspaceCompareRoute
+  '/workspace/configure': typeof WorkspaceConfigureRoute
+  '/workspace/export': typeof WorkspaceExportRoute
+  '/workspace/inspect': typeof WorkspaceInspectRoute
+  '/workspace/reproduce': typeof WorkspaceReproduceRoute
+  '/workspace/run': typeof WorkspaceRunRoute
+  '/workspace/upload': typeof WorkspaceUploadRoute
+  '/workspace/validate': typeof WorkspaceValidateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/new': typeof NewRoute
+  '/workspace': typeof WorkspaceRouteWithChildren
+  '/workspace/annotate': typeof WorkspaceAnnotateRoute
+  '/workspace/compare': typeof WorkspaceCompareRoute
+  '/workspace/configure': typeof WorkspaceConfigureRoute
+  '/workspace/export': typeof WorkspaceExportRoute
+  '/workspace/inspect': typeof WorkspaceInspectRoute
+  '/workspace/reproduce': typeof WorkspaceReproduceRoute
+  '/workspace/run': typeof WorkspaceRunRoute
+  '/workspace/upload': typeof WorkspaceUploadRoute
+  '/workspace/validate': typeof WorkspaceValidateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/new'
+    | '/workspace'
+    | '/workspace/annotate'
+    | '/workspace/compare'
+    | '/workspace/configure'
+    | '/workspace/export'
+    | '/workspace/inspect'
+    | '/workspace/reproduce'
+    | '/workspace/run'
+    | '/workspace/upload'
+    | '/workspace/validate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/new'
+    | '/workspace'
+    | '/workspace/annotate'
+    | '/workspace/compare'
+    | '/workspace/configure'
+    | '/workspace/export'
+    | '/workspace/inspect'
+    | '/workspace/reproduce'
+    | '/workspace/run'
+    | '/workspace/upload'
+    | '/workspace/validate'
+  id:
+    | '__root__'
+    | '/'
+    | '/new'
+    | '/workspace'
+    | '/workspace/annotate'
+    | '/workspace/compare'
+    | '/workspace/configure'
+    | '/workspace/export'
+    | '/workspace/inspect'
+    | '/workspace/reproduce'
+    | '/workspace/run'
+    | '/workspace/upload'
+    | '/workspace/validate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  NewRoute: typeof NewRoute
+  WorkspaceRoute: typeof WorkspaceRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workspace': {
+      id: '/workspace'
+      path: '/workspace'
+      fullPath: '/workspace'
+      preLoaderRoute: typeof WorkspaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new': {
+      id: '/new'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof NewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +200,105 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/workspace/validate': {
+      id: '/workspace/validate'
+      path: '/validate'
+      fullPath: '/workspace/validate'
+      preLoaderRoute: typeof WorkspaceValidateRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/upload': {
+      id: '/workspace/upload'
+      path: '/upload'
+      fullPath: '/workspace/upload'
+      preLoaderRoute: typeof WorkspaceUploadRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/run': {
+      id: '/workspace/run'
+      path: '/run'
+      fullPath: '/workspace/run'
+      preLoaderRoute: typeof WorkspaceRunRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/reproduce': {
+      id: '/workspace/reproduce'
+      path: '/reproduce'
+      fullPath: '/workspace/reproduce'
+      preLoaderRoute: typeof WorkspaceReproduceRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/inspect': {
+      id: '/workspace/inspect'
+      path: '/inspect'
+      fullPath: '/workspace/inspect'
+      preLoaderRoute: typeof WorkspaceInspectRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/export': {
+      id: '/workspace/export'
+      path: '/export'
+      fullPath: '/workspace/export'
+      preLoaderRoute: typeof WorkspaceExportRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/configure': {
+      id: '/workspace/configure'
+      path: '/configure'
+      fullPath: '/workspace/configure'
+      preLoaderRoute: typeof WorkspaceConfigureRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/compare': {
+      id: '/workspace/compare'
+      path: '/compare'
+      fullPath: '/workspace/compare'
+      preLoaderRoute: typeof WorkspaceCompareRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/annotate': {
+      id: '/workspace/annotate'
+      path: '/annotate'
+      fullPath: '/workspace/annotate'
+      preLoaderRoute: typeof WorkspaceAnnotateRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
   }
 }
 
+interface WorkspaceRouteChildren {
+  WorkspaceAnnotateRoute: typeof WorkspaceAnnotateRoute
+  WorkspaceCompareRoute: typeof WorkspaceCompareRoute
+  WorkspaceConfigureRoute: typeof WorkspaceConfigureRoute
+  WorkspaceExportRoute: typeof WorkspaceExportRoute
+  WorkspaceInspectRoute: typeof WorkspaceInspectRoute
+  WorkspaceReproduceRoute: typeof WorkspaceReproduceRoute
+  WorkspaceRunRoute: typeof WorkspaceRunRoute
+  WorkspaceUploadRoute: typeof WorkspaceUploadRoute
+  WorkspaceValidateRoute: typeof WorkspaceValidateRoute
+}
+
+const WorkspaceRouteChildren: WorkspaceRouteChildren = {
+  WorkspaceAnnotateRoute: WorkspaceAnnotateRoute,
+  WorkspaceCompareRoute: WorkspaceCompareRoute,
+  WorkspaceConfigureRoute: WorkspaceConfigureRoute,
+  WorkspaceExportRoute: WorkspaceExportRoute,
+  WorkspaceInspectRoute: WorkspaceInspectRoute,
+  WorkspaceReproduceRoute: WorkspaceReproduceRoute,
+  WorkspaceRunRoute: WorkspaceRunRoute,
+  WorkspaceUploadRoute: WorkspaceUploadRoute,
+  WorkspaceValidateRoute: WorkspaceValidateRoute,
+}
+
+const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
+  WorkspaceRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  NewRoute: NewRoute,
+  WorkspaceRoute: WorkspaceRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
