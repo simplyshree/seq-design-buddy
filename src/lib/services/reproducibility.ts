@@ -28,10 +28,12 @@ export function selectBundleFiles(availableFiles: string[], includeRawData: bool
   const excluded: string[] = [];
   for (const file of availableFiles) {
     const isStandard = STANDARD_BUNDLE_FILES.includes(file as (typeof STANDARD_BUNDLE_FILES)[number]);
-    const isRaw = RAW_DATA_PATTERNS.some((pattern) => pattern.test(file)) && !file.includes("manifest") && !file.includes("metrics");
-    if (isRaw && !includeRawData) {
+    const isRaw = !isStandard && RAW_DATA_PATTERNS.some((pattern) => pattern.test(file));
+    if (isStandard) {
+      included.push(file);
+    } else if (isRaw && !includeRawData) {
       excluded.push(file);
-    } else if (isStandard || includeRawData) {
+    } else if (includeRawData) {
       included.push(file);
     }
   }

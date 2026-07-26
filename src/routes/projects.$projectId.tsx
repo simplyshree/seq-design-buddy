@@ -1,5 +1,5 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/projects/$projectId")({
-  component: () => <Navigate to="/workspace/upload" />,
+  component: () => <Outlet />,
 });

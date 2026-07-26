@@ -28,6 +28,7 @@ import { Route as LearnHpcRouteImport } from './routes/learn.hpc'
 import { Route as LearnGlossaryRouteImport } from './routes/learn.glossary'
 import { Route as LearnColabRouteImport } from './routes/learn.colab'
 import { Route as LearnArtifactsRouteImport } from './routes/learn.artifacts'
+import { Route as ProjectsProjectIdIndexRouteImport } from './routes/projects.$projectId.index'
 import { Route as ProjectsProjectIdValidateRouteImport } from './routes/projects.$projectId.validate'
 import { Route as ProjectsProjectIdUploadRouteImport } from './routes/projects.$projectId.upload'
 import { Route as ProjectsProjectIdRunRouteImport } from './routes/projects.$projectId.run'
@@ -133,6 +134,11 @@ const LearnArtifactsRoute = LearnArtifactsRouteImport.update({
   path: '/artifacts',
   getParentRoute: () => LearnRoute,
 } as any)
+const ProjectsProjectIdIndexRoute = ProjectsProjectIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
 const ProjectsProjectIdValidateRoute =
   ProjectsProjectIdValidateRouteImport.update({
     id: '/validate',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
   '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
   '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
+  '/projects/$projectId/': typeof ProjectsProjectIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -224,7 +231,6 @@ export interface FileRoutesByTo {
   '/learn/colab': typeof LearnColabRoute
   '/learn/glossary': typeof LearnGlossaryRoute
   '/learn/hpc': typeof LearnHpcRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
   '/projects/new': typeof ProjectsNewRoute
   '/workspace/annotate': typeof WorkspaceAnnotateRoute
   '/workspace/compare': typeof WorkspaceCompareRoute
@@ -244,6 +250,7 @@ export interface FileRoutesByTo {
   '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
   '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
   '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
+  '/projects/$projectId': typeof ProjectsProjectIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -275,6 +282,7 @@ export interface FileRoutesById {
   '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
   '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
   '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
+  '/projects/$projectId/': typeof ProjectsProjectIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -307,6 +315,7 @@ export interface FileRouteTypes {
     | '/projects/$projectId/run'
     | '/projects/$projectId/upload'
     | '/projects/$projectId/validate'
+    | '/projects/$projectId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -317,7 +326,6 @@ export interface FileRouteTypes {
     | '/learn/colab'
     | '/learn/glossary'
     | '/learn/hpc'
-    | '/projects/$projectId'
     | '/projects/new'
     | '/workspace/annotate'
     | '/workspace/compare'
@@ -337,6 +345,7 @@ export interface FileRouteTypes {
     | '/projects/$projectId/run'
     | '/projects/$projectId/upload'
     | '/projects/$projectId/validate'
+    | '/projects/$projectId'
   id:
     | '__root__'
     | '/'
@@ -367,6 +376,7 @@ export interface FileRouteTypes {
     | '/projects/$projectId/run'
     | '/projects/$projectId/upload'
     | '/projects/$projectId/validate'
+    | '/projects/$projectId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -513,6 +523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnArtifactsRouteImport
       parentRoute: typeof LearnRoute
     }
+    '/projects/$projectId/': {
+      id: '/projects/$projectId/'
+      path: '/'
+      fullPath: '/projects/$projectId/'
+      preLoaderRoute: typeof ProjectsProjectIdIndexRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
     '/projects/$projectId/validate': {
       id: '/projects/$projectId/validate'
       path: '/validate'
@@ -633,6 +650,7 @@ interface ProjectsProjectIdRouteChildren {
   ProjectsProjectIdRunRoute: typeof ProjectsProjectIdRunRoute
   ProjectsProjectIdUploadRoute: typeof ProjectsProjectIdUploadRoute
   ProjectsProjectIdValidateRoute: typeof ProjectsProjectIdValidateRoute
+  ProjectsProjectIdIndexRoute: typeof ProjectsProjectIdIndexRoute
 }
 
 const ProjectsProjectIdRouteChildren: ProjectsProjectIdRouteChildren = {
@@ -645,6 +663,7 @@ const ProjectsProjectIdRouteChildren: ProjectsProjectIdRouteChildren = {
   ProjectsProjectIdRunRoute: ProjectsProjectIdRunRoute,
   ProjectsProjectIdUploadRoute: ProjectsProjectIdUploadRoute,
   ProjectsProjectIdValidateRoute: ProjectsProjectIdValidateRoute,
+  ProjectsProjectIdIndexRoute: ProjectsProjectIdIndexRoute,
 }
 
 const ProjectsProjectIdRouteWithChildren =

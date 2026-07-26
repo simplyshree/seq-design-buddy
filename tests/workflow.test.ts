@@ -60,8 +60,17 @@ test("artifact parser reports missing SeqTrainer outputs", () => {
 });
 
 test("bundle excludes raw datasets by default", () => {
-  const selected = selectBundleFiles(["metrics.csv", "dataset.csv", "manifest.json", "project_summary.md"], false);
-  assert.deepEqual(selected.included, ["metrics.csv", "manifest.json", "project_summary.md"]);
+  const selected = selectBundleFiles(
+    ["metrics.csv", "predictions.csv", "history.csv", "dataset.csv", "manifest.json", "project_summary.md"],
+    false,
+  );
+  assert.deepEqual(selected.included, [
+    "metrics.csv",
+    "predictions.csv",
+    "history.csv",
+    "manifest.json",
+    "project_summary.md",
+  ]);
   assert.deepEqual(selected.excluded, ["dataset.csv"]);
 });
 
