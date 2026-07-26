@@ -18,7 +18,28 @@ export function parseMetricsJson(text: string): MetricSet {
   ] as const) {
     if (typeof parsed[source] === "number") metric[target] = parsed[source];
   }
+  const confusionMatrix = parseConfusionMatrix(parsed.confusion_matrix);
+  if (confusionMatrix) metric.confusionMatrix = confusionMatrix;
   return metric;
+}
+
+function parseConfusionMatrix(value: unknown): MetricSet["confusionMatrix"] | undefined {
+  if (Array.isArray(value) && value.length === 2 && Array.isArray(value[0]) && Array.isArray(value[1])) {
+    const [[tn, fp], [fn, tp]] = value as unknown[][];
+    return confusionCounts(tn, fp, fn, tp);
+  }
+  if (value && typeof value === "object") {
+    const matrix = value as Record<string, unknown>;
+    return confusionCounts(matrix.tn, matrix.fp, matrix.fn, matrix.tp);
+  }
+  return undefined;
+}
+
+function confusionCounts(tn: unknown, fp: unknown, fn: unknown, tp: unknown): MetricSet["confusionMatrix"] | undefined {
+  if ([tn, fp, fn, tp].every((count) => typeof count === "number" && Number.isFinite(count))) {
+    return { tn: tn as number, fp: fp as number, fn: fn as number, tp: tp as number };
+  }
+  return undefined;
 }
 
 export type ModelSplitRecord = {

@@ -46,7 +46,8 @@ export function sha256Hex(data: string | Uint8Array): string {
 
 export function sanitizeFilename(filename: string): string {
   const base = filename.replace(/\\/g, "/").split("/").pop() || "upload";
-  return base.replace(/[^A-Za-z0-9._-]/g, "_").slice(0, 120);
+  const sanitized = base.replace(/[^A-Za-z0-9._-]/g, "_").slice(0, 120);
+  return sanitized === "." || sanitized === ".." || sanitized.length === 0 ? "upload" : sanitized;
 }
 
 export function fileTypeFromName(filename: string): BiologicalFileType {
@@ -72,6 +73,7 @@ export function validateUploadBasics(input: {
 
 export function detectBiologicalFormat(filename: string, sample: string): BiologicalFileType {
   const byName = fileTypeFromName(filename);
+  const lower = filename.toLowerCase();
   const trimmed = sample.trimStart();
   if (trimmed.startsWith(">")) return "fasta";
   if (/^LOCUS\s+/m.test(sample) || /^FEATURES\s+/m.test(sample)) return "genbank";
@@ -80,6 +82,7 @@ export function detectBiologicalFormat(filename: string, sample: string): Biolog
   if (trimmed.includes("<rdf:RDF") || trimmed.includes("http://sbols.org") || trimmed.includes("https://sbols.org")) {
     return byName === "rdf-xml" ? "rdf-xml" : "sbol-xml";
   }
+  if (lower.endsWith(".xml")) return "unknown";
   return byName;
 }
 

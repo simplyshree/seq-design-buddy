@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { canMoveToStep, WORKFLOW_ORDER } from "../src/lib/domain/workflow.ts";
-import { inspectUpload, sanitizeFilename, sha256Hex } from "../src/lib/validation/uploads.ts";
+import { detectBiologicalFormat, inspectUpload, sanitizeFilename, sha256Hex } from "../src/lib/validation/uploads.ts";
 import { readWorkspaceEnvironment } from "../src/lib/config/environment.ts";
 import { missingSeqTrainerArtifacts, parseMetricsJson, validateScientificComparison } from "../src/lib/services/metrics.ts";
 import { selectBundleFiles } from "../src/lib/services/reproducibility.ts";
@@ -31,6 +31,22 @@ test("upload inspection validates format, checksum, filename, and FASTA label wa
   assert.match(result.warnings.join("\n"), /FASTA does not include labels/);
 });
 
+test("filename sanitization rejects traversal-only basenames", () => {
+  assert.equal(sanitizeFilename("../.."), "upload");
+  assert.equal(sanitizeFilename("."), "upload");
+  assert.equal(sanitizeFilename(".."), "upload");
+  assert.equal(sanitizeFilename("../safe file.csv"), "safe_file.csv");
+});
+
+test("generic XML is not classified as SBOL without RDF or SBOL markers", () => {
+  assert.equal(detectBiologicalFormat("notes.xml", "<root><note>hello</note></root>"), "unknown");
+  assert.equal(
+    detectBiologicalFormat("design.xml", '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"></rdf:RDF>'),
+    "sbol-xml",
+  );
+  assert.equal(detectBiologicalFormat("design.sbol", "<sbol:Component xmlns:sbol=\"http://sbols.org/v3#\" />"), "sbol-xml");
+});
+
 test("environment parser defaults to mock and instructions-safe modes", () => {
   const env = readWorkspaceEnvironment({});
   assert.equal(env.benchlabMode, "mock");
@@ -53,6 +69,15 @@ test("metrics parser and comparison rules reject test tuning", () => {
     tunedOnTest: true,
   });
   assert.equal(errors.length, 2);
+});
+
+test("metrics parser preserves confusion matrices", () => {
+  assert.deepEqual(parseMetricsJson('{"confusion_matrix":{"tn":10,"fp":2,"fn":3,"tp":8}}'), {
+    confusionMatrix: { tn: 10, fp: 2, fn: 3, tp: 8 },
+  });
+  assert.deepEqual(parseMetricsJson('{"confusion_matrix":[[10,2],[3,8]]}'), {
+    confusionMatrix: { tn: 10, fp: 2, fn: 3, tp: 8 },
+  });
 });
 
 test("scientific comparison rejects mismatched model split identities", () => {
