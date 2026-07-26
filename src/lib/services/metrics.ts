@@ -21,15 +21,41 @@ export function parseMetricsJson(text: string): MetricSet {
   return metric;
 }
 
+export type ModelSplitRecord = {
+  modelId: string;
+  trainFile: string;
+  validationFile: string;
+  testFile: string;
+};
+
 export function validateScientificComparison(input: {
   trainFile: string;
   validationFile: string;
   testFile: string;
   thresholdSelectedOn: string;
   tunedOnTest?: boolean;
+  modelSplits?: ModelSplitRecord[];
 }) {
   const errors: string[] = [];
-  if (!input.trainFile || !input.validationFile || !input.testFile) errors.push("All models need the same train, validation, and test files.");
+  if (!input.trainFile || !input.validationFile || !input.testFile) {
+    errors.push("All models need the same train, validation, and test files.");
+  }
+  const reference = {
+    trainFile: input.trainFile,
+    validationFile: input.validationFile,
+    testFile: input.testFile,
+  };
+  for (const split of input.modelSplits || []) {
+    if (!split.trainFile || !split.validationFile || !split.testFile) {
+      errors.push(`${split.modelId} is missing a train, validation, or test file.`);
+    } else if (
+      split.trainFile !== reference.trainFile ||
+      split.validationFile !== reference.validationFile ||
+      split.testFile !== reference.testFile
+    ) {
+      errors.push(`${split.modelId} does not use the reference train, validation, and test files.`);
+    }
+  }
   if (input.thresholdSelectedOn !== "validation") errors.push("Threshold and model selection must use validation data only.");
   if (input.tunedOnTest) errors.push("Test data must not be used for tuning.");
   return errors;

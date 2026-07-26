@@ -23,18 +23,32 @@ export const STANDARD_BUNDLE_FILES = [
 
 const RAW_DATA_PATTERNS = [/\.csv$/i, /\.tsv$/i, /\.fa(sta)?$/i, /\.gbk?$/i, /\.gff3?$/i, /raw/i, /dataset\./i];
 
-export function selectBundleFiles(availableFiles: string[], includeRawData: boolean) {
+export type BundleFileRole =
+  | "raw-upload"
+  | "generated-output"
+  | "manifest"
+  | "guide"
+  | "export"
+  | "environment";
+
+export type BundleFileEntry = {
+  path: string;
+  role: BundleFileRole;
+};
+
+export function selectBundleFiles(availableFiles: BundleFileEntry[], includeRawData: boolean) {
   const included: string[] = [];
   const excluded: string[] = [];
-  for (const file of availableFiles) {
+  for (const { path: file, role } of availableFiles) {
     const isStandard = STANDARD_BUNDLE_FILES.includes(file as (typeof STANDARD_BUNDLE_FILES)[number]);
-    const isRaw = !isStandard && RAW_DATA_PATTERNS.some((pattern) => pattern.test(file));
-    if (isStandard) {
-      included.push(file);
-    } else if (isRaw && !includeRawData) {
+    const looksLikeRawData = RAW_DATA_PATTERNS.some((pattern) => pattern.test(file));
+    const isRaw = role === "raw-upload";
+    if (isRaw && !includeRawData) {
       excluded.push(file);
-    } else if (includeRawData) {
+    } else if (isStandard || role !== "raw-upload" || includeRawData) {
       included.push(file);
+    } else if (looksLikeRawData) {
+      excluded.push(file);
     }
   }
   return { included, excluded };

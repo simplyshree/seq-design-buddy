@@ -55,13 +55,34 @@ test("metrics parser and comparison rules reject test tuning", () => {
   assert.equal(errors.length, 2);
 });
 
+test("scientific comparison rejects mismatched model split identities", () => {
+  const errors = validateScientificComparison({
+    trainFile: "train.csv",
+    validationFile: "valid.csv",
+    testFile: "test.csv",
+    thresholdSelectedOn: "validation",
+    modelSplits: [
+      { modelId: "cnn", trainFile: "train.csv", validationFile: "valid.csv", testFile: "test.csv" },
+      { modelId: "dnabert2", trainFile: "train-other.csv", validationFile: "valid.csv", testFile: "test.csv" },
+    ],
+  });
+  assert.deepEqual(errors, ["dnabert2 does not use the reference train, validation, and test files."]);
+});
+
 test("artifact parser reports missing SeqTrainer outputs", () => {
   assert.deepEqual(missingSeqTrainerArtifacts(["metrics.csv", "metrics.json"]), ["predictions.csv", "manifest.json"]);
 });
 
 test("bundle excludes raw datasets by default", () => {
   const selected = selectBundleFiles(
-    ["metrics.csv", "predictions.csv", "history.csv", "dataset.csv", "manifest.json", "project_summary.md"],
+    [
+      { path: "metrics.csv", role: "generated-output" },
+      { path: "predictions.csv", role: "generated-output" },
+      { path: "history.csv", role: "generated-output" },
+      { path: "dataset.csv", role: "raw-upload" },
+      { path: "manifest.json", role: "manifest" },
+      { path: "project_summary.md", role: "manifest" },
+    ],
     false,
   );
   assert.deepEqual(selected.included, [
@@ -72,6 +93,19 @@ test("bundle excludes raw datasets by default", () => {
     "project_summary.md",
   ]);
   assert.deepEqual(selected.excluded, ["dataset.csv"]);
+});
+
+test("bundle excludes raw uploads even when they use reserved output filenames", () => {
+  const selected = selectBundleFiles(
+    [
+      { path: "predictions.csv", role: "raw-upload" },
+      { path: "history.csv", role: "raw-upload" },
+      { path: "metrics.csv", role: "raw-upload" },
+    ],
+    false,
+  );
+  assert.deepEqual(selected.included, []);
+  assert.deepEqual(selected.excluded, ["predictions.csv", "history.csv", "metrics.csv"]);
 });
 
 test("safe SeqTrainer command uses allowlisted repo path and structured args", () => {
