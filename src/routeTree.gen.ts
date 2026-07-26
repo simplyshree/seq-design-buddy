@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkspaceRouteImport } from './routes/workspace'
 import { Route as NewRouteImport } from './routes/new'
+import { Route as LearnRouteImport } from './routes/learn'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkspaceValidateRouteImport } from './routes/workspace.validate'
 import { Route as WorkspaceUploadRouteImport } from './routes/workspace.upload'
@@ -21,6 +22,22 @@ import { Route as WorkspaceExportRouteImport } from './routes/workspace.export'
 import { Route as WorkspaceConfigureRouteImport } from './routes/workspace.configure'
 import { Route as WorkspaceCompareRouteImport } from './routes/workspace.compare'
 import { Route as WorkspaceAnnotateRouteImport } from './routes/workspace.annotate'
+import { Route as ProjectsNewRouteImport } from './routes/projects.new'
+import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
+import { Route as LearnHpcRouteImport } from './routes/learn.hpc'
+import { Route as LearnGlossaryRouteImport } from './routes/learn.glossary'
+import { Route as LearnColabRouteImport } from './routes/learn.colab'
+import { Route as LearnArtifactsRouteImport } from './routes/learn.artifacts'
+import { Route as ProjectsProjectIdIndexRouteImport } from './routes/projects.$projectId.index'
+import { Route as ProjectsProjectIdValidateRouteImport } from './routes/projects.$projectId.validate'
+import { Route as ProjectsProjectIdUploadRouteImport } from './routes/projects.$projectId.upload'
+import { Route as ProjectsProjectIdRunRouteImport } from './routes/projects.$projectId.run'
+import { Route as ProjectsProjectIdReproduceRouteImport } from './routes/projects.$projectId.reproduce'
+import { Route as ProjectsProjectIdInspectRouteImport } from './routes/projects.$projectId.inspect'
+import { Route as ProjectsProjectIdExportRouteImport } from './routes/projects.$projectId.export'
+import { Route as ProjectsProjectIdConfigureRouteImport } from './routes/projects.$projectId.configure'
+import { Route as ProjectsProjectIdCompareRouteImport } from './routes/projects.$projectId.compare'
+import { Route as ProjectsProjectIdAnnotateRouteImport } from './routes/projects.$projectId.annotate'
 
 const WorkspaceRoute = WorkspaceRouteImport.update({
   id: '/workspace',
@@ -30,6 +47,11 @@ const WorkspaceRoute = WorkspaceRouteImport.update({
 const NewRoute = NewRouteImport.update({
   id: '/new',
   path: '/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -82,11 +104,104 @@ const WorkspaceAnnotateRoute = WorkspaceAnnotateRouteImport.update({
   path: '/annotate',
   getParentRoute: () => WorkspaceRoute,
 } as any)
+const ProjectsNewRoute = ProjectsNewRouteImport.update({
+  id: '/projects/new',
+  path: '/projects/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
+  id: '/projects/$projectId',
+  path: '/projects/$projectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnHpcRoute = LearnHpcRouteImport.update({
+  id: '/hpc',
+  path: '/hpc',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnGlossaryRoute = LearnGlossaryRouteImport.update({
+  id: '/glossary',
+  path: '/glossary',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnColabRoute = LearnColabRouteImport.update({
+  id: '/colab',
+  path: '/colab',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnArtifactsRoute = LearnArtifactsRouteImport.update({
+  id: '/artifacts',
+  path: '/artifacts',
+  getParentRoute: () => LearnRoute,
+} as any)
+const ProjectsProjectIdIndexRoute = ProjectsProjectIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdValidateRoute =
+  ProjectsProjectIdValidateRouteImport.update({
+    id: '/validate',
+    path: '/validate',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdUploadRoute = ProjectsProjectIdUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdRunRoute = ProjectsProjectIdRunRouteImport.update({
+  id: '/run',
+  path: '/run',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdReproduceRoute =
+  ProjectsProjectIdReproduceRouteImport.update({
+    id: '/reproduce',
+    path: '/reproduce',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdInspectRoute =
+  ProjectsProjectIdInspectRouteImport.update({
+    id: '/inspect',
+    path: '/inspect',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdExportRoute = ProjectsProjectIdExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => ProjectsProjectIdRoute,
+} as any)
+const ProjectsProjectIdConfigureRoute =
+  ProjectsProjectIdConfigureRouteImport.update({
+    id: '/configure',
+    path: '/configure',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdCompareRoute =
+  ProjectsProjectIdCompareRouteImport.update({
+    id: '/compare',
+    path: '/compare',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
+const ProjectsProjectIdAnnotateRoute =
+  ProjectsProjectIdAnnotateRouteImport.update({
+    id: '/annotate',
+    path: '/annotate',
+    getParentRoute: () => ProjectsProjectIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/learn': typeof LearnRouteWithChildren
   '/new': typeof NewRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/learn/artifacts': typeof LearnArtifactsRoute
+  '/learn/colab': typeof LearnColabRoute
+  '/learn/glossary': typeof LearnGlossaryRoute
+  '/learn/hpc': typeof LearnHpcRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
+  '/projects/new': typeof ProjectsNewRoute
   '/workspace/annotate': typeof WorkspaceAnnotateRoute
   '/workspace/compare': typeof WorkspaceCompareRoute
   '/workspace/configure': typeof WorkspaceConfigureRoute
@@ -96,11 +211,27 @@ export interface FileRoutesByFullPath {
   '/workspace/run': typeof WorkspaceRunRoute
   '/workspace/upload': typeof WorkspaceUploadRoute
   '/workspace/validate': typeof WorkspaceValidateRoute
+  '/projects/$projectId/annotate': typeof ProjectsProjectIdAnnotateRoute
+  '/projects/$projectId/compare': typeof ProjectsProjectIdCompareRoute
+  '/projects/$projectId/configure': typeof ProjectsProjectIdConfigureRoute
+  '/projects/$projectId/export': typeof ProjectsProjectIdExportRoute
+  '/projects/$projectId/inspect': typeof ProjectsProjectIdInspectRoute
+  '/projects/$projectId/reproduce': typeof ProjectsProjectIdReproduceRoute
+  '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
+  '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
+  '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
+  '/projects/$projectId/': typeof ProjectsProjectIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/learn': typeof LearnRouteWithChildren
   '/new': typeof NewRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/learn/artifacts': typeof LearnArtifactsRoute
+  '/learn/colab': typeof LearnColabRoute
+  '/learn/glossary': typeof LearnGlossaryRoute
+  '/learn/hpc': typeof LearnHpcRoute
+  '/projects/new': typeof ProjectsNewRoute
   '/workspace/annotate': typeof WorkspaceAnnotateRoute
   '/workspace/compare': typeof WorkspaceCompareRoute
   '/workspace/configure': typeof WorkspaceConfigureRoute
@@ -110,12 +241,29 @@ export interface FileRoutesByTo {
   '/workspace/run': typeof WorkspaceRunRoute
   '/workspace/upload': typeof WorkspaceUploadRoute
   '/workspace/validate': typeof WorkspaceValidateRoute
+  '/projects/$projectId/annotate': typeof ProjectsProjectIdAnnotateRoute
+  '/projects/$projectId/compare': typeof ProjectsProjectIdCompareRoute
+  '/projects/$projectId/configure': typeof ProjectsProjectIdConfigureRoute
+  '/projects/$projectId/export': typeof ProjectsProjectIdExportRoute
+  '/projects/$projectId/inspect': typeof ProjectsProjectIdInspectRoute
+  '/projects/$projectId/reproduce': typeof ProjectsProjectIdReproduceRoute
+  '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
+  '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
+  '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
+  '/projects/$projectId': typeof ProjectsProjectIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/learn': typeof LearnRouteWithChildren
   '/new': typeof NewRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/learn/artifacts': typeof LearnArtifactsRoute
+  '/learn/colab': typeof LearnColabRoute
+  '/learn/glossary': typeof LearnGlossaryRoute
+  '/learn/hpc': typeof LearnHpcRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
+  '/projects/new': typeof ProjectsNewRoute
   '/workspace/annotate': typeof WorkspaceAnnotateRoute
   '/workspace/compare': typeof WorkspaceCompareRoute
   '/workspace/configure': typeof WorkspaceConfigureRoute
@@ -125,13 +273,30 @@ export interface FileRoutesById {
   '/workspace/run': typeof WorkspaceRunRoute
   '/workspace/upload': typeof WorkspaceUploadRoute
   '/workspace/validate': typeof WorkspaceValidateRoute
+  '/projects/$projectId/annotate': typeof ProjectsProjectIdAnnotateRoute
+  '/projects/$projectId/compare': typeof ProjectsProjectIdCompareRoute
+  '/projects/$projectId/configure': typeof ProjectsProjectIdConfigureRoute
+  '/projects/$projectId/export': typeof ProjectsProjectIdExportRoute
+  '/projects/$projectId/inspect': typeof ProjectsProjectIdInspectRoute
+  '/projects/$projectId/reproduce': typeof ProjectsProjectIdReproduceRoute
+  '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
+  '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
+  '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
+  '/projects/$projectId/': typeof ProjectsProjectIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/learn'
     | '/new'
     | '/workspace'
+    | '/learn/artifacts'
+    | '/learn/colab'
+    | '/learn/glossary'
+    | '/learn/hpc'
+    | '/projects/$projectId'
+    | '/projects/new'
     | '/workspace/annotate'
     | '/workspace/compare'
     | '/workspace/configure'
@@ -141,11 +306,27 @@ export interface FileRouteTypes {
     | '/workspace/run'
     | '/workspace/upload'
     | '/workspace/validate'
+    | '/projects/$projectId/annotate'
+    | '/projects/$projectId/compare'
+    | '/projects/$projectId/configure'
+    | '/projects/$projectId/export'
+    | '/projects/$projectId/inspect'
+    | '/projects/$projectId/reproduce'
+    | '/projects/$projectId/run'
+    | '/projects/$projectId/upload'
+    | '/projects/$projectId/validate'
+    | '/projects/$projectId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/learn'
     | '/new'
     | '/workspace'
+    | '/learn/artifacts'
+    | '/learn/colab'
+    | '/learn/glossary'
+    | '/learn/hpc'
+    | '/projects/new'
     | '/workspace/annotate'
     | '/workspace/compare'
     | '/workspace/configure'
@@ -155,11 +336,28 @@ export interface FileRouteTypes {
     | '/workspace/run'
     | '/workspace/upload'
     | '/workspace/validate'
+    | '/projects/$projectId/annotate'
+    | '/projects/$projectId/compare'
+    | '/projects/$projectId/configure'
+    | '/projects/$projectId/export'
+    | '/projects/$projectId/inspect'
+    | '/projects/$projectId/reproduce'
+    | '/projects/$projectId/run'
+    | '/projects/$projectId/upload'
+    | '/projects/$projectId/validate'
+    | '/projects/$projectId'
   id:
     | '__root__'
     | '/'
+    | '/learn'
     | '/new'
     | '/workspace'
+    | '/learn/artifacts'
+    | '/learn/colab'
+    | '/learn/glossary'
+    | '/learn/hpc'
+    | '/projects/$projectId'
+    | '/projects/new'
     | '/workspace/annotate'
     | '/workspace/compare'
     | '/workspace/configure'
@@ -169,12 +367,25 @@ export interface FileRouteTypes {
     | '/workspace/run'
     | '/workspace/upload'
     | '/workspace/validate'
+    | '/projects/$projectId/annotate'
+    | '/projects/$projectId/compare'
+    | '/projects/$projectId/configure'
+    | '/projects/$projectId/export'
+    | '/projects/$projectId/inspect'
+    | '/projects/$projectId/reproduce'
+    | '/projects/$projectId/run'
+    | '/projects/$projectId/upload'
+    | '/projects/$projectId/validate'
+    | '/projects/$projectId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LearnRoute: typeof LearnRouteWithChildren
   NewRoute: typeof NewRoute
   WorkspaceRoute: typeof WorkspaceRouteWithChildren
+  ProjectsProjectIdRoute: typeof ProjectsProjectIdRouteWithChildren
+  ProjectsNewRoute: typeof ProjectsNewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -191,6 +402,13 @@ declare module '@tanstack/react-router' {
       path: '/new'
       fullPath: '/new'
       preLoaderRoute: typeof NewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -263,8 +481,136 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceAnnotateRouteImport
       parentRoute: typeof WorkspaceRoute
     }
+    '/projects/new': {
+      id: '/projects/new'
+      path: '/projects/new'
+      fullPath: '/projects/new'
+      preLoaderRoute: typeof ProjectsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/$projectId': {
+      id: '/projects/$projectId'
+      path: '/projects/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof ProjectsProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/hpc': {
+      id: '/learn/hpc'
+      path: '/hpc'
+      fullPath: '/learn/hpc'
+      preLoaderRoute: typeof LearnHpcRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/glossary': {
+      id: '/learn/glossary'
+      path: '/glossary'
+      fullPath: '/learn/glossary'
+      preLoaderRoute: typeof LearnGlossaryRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/colab': {
+      id: '/learn/colab'
+      path: '/colab'
+      fullPath: '/learn/colab'
+      preLoaderRoute: typeof LearnColabRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/artifacts': {
+      id: '/learn/artifacts'
+      path: '/artifacts'
+      fullPath: '/learn/artifacts'
+      preLoaderRoute: typeof LearnArtifactsRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/projects/$projectId/': {
+      id: '/projects/$projectId/'
+      path: '/'
+      fullPath: '/projects/$projectId/'
+      preLoaderRoute: typeof ProjectsProjectIdIndexRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/validate': {
+      id: '/projects/$projectId/validate'
+      path: '/validate'
+      fullPath: '/projects/$projectId/validate'
+      preLoaderRoute: typeof ProjectsProjectIdValidateRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/upload': {
+      id: '/projects/$projectId/upload'
+      path: '/upload'
+      fullPath: '/projects/$projectId/upload'
+      preLoaderRoute: typeof ProjectsProjectIdUploadRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/run': {
+      id: '/projects/$projectId/run'
+      path: '/run'
+      fullPath: '/projects/$projectId/run'
+      preLoaderRoute: typeof ProjectsProjectIdRunRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/reproduce': {
+      id: '/projects/$projectId/reproduce'
+      path: '/reproduce'
+      fullPath: '/projects/$projectId/reproduce'
+      preLoaderRoute: typeof ProjectsProjectIdReproduceRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/inspect': {
+      id: '/projects/$projectId/inspect'
+      path: '/inspect'
+      fullPath: '/projects/$projectId/inspect'
+      preLoaderRoute: typeof ProjectsProjectIdInspectRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/export': {
+      id: '/projects/$projectId/export'
+      path: '/export'
+      fullPath: '/projects/$projectId/export'
+      preLoaderRoute: typeof ProjectsProjectIdExportRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/configure': {
+      id: '/projects/$projectId/configure'
+      path: '/configure'
+      fullPath: '/projects/$projectId/configure'
+      preLoaderRoute: typeof ProjectsProjectIdConfigureRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/compare': {
+      id: '/projects/$projectId/compare'
+      path: '/compare'
+      fullPath: '/projects/$projectId/compare'
+      preLoaderRoute: typeof ProjectsProjectIdCompareRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
+    '/projects/$projectId/annotate': {
+      id: '/projects/$projectId/annotate'
+      path: '/annotate'
+      fullPath: '/projects/$projectId/annotate'
+      preLoaderRoute: typeof ProjectsProjectIdAnnotateRouteImport
+      parentRoute: typeof ProjectsProjectIdRoute
+    }
   }
 }
+
+interface LearnRouteChildren {
+  LearnArtifactsRoute: typeof LearnArtifactsRoute
+  LearnColabRoute: typeof LearnColabRoute
+  LearnGlossaryRoute: typeof LearnGlossaryRoute
+  LearnHpcRoute: typeof LearnHpcRoute
+}
+
+const LearnRouteChildren: LearnRouteChildren = {
+  LearnArtifactsRoute: LearnArtifactsRoute,
+  LearnColabRoute: LearnColabRoute,
+  LearnGlossaryRoute: LearnGlossaryRoute,
+  LearnHpcRoute: LearnHpcRoute,
+}
+
+const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
 
 interface WorkspaceRouteChildren {
   WorkspaceAnnotateRoute: typeof WorkspaceAnnotateRoute
@@ -294,11 +640,53 @@ const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
   WorkspaceRouteChildren,
 )
 
+interface ProjectsProjectIdRouteChildren {
+  ProjectsProjectIdAnnotateRoute: typeof ProjectsProjectIdAnnotateRoute
+  ProjectsProjectIdCompareRoute: typeof ProjectsProjectIdCompareRoute
+  ProjectsProjectIdConfigureRoute: typeof ProjectsProjectIdConfigureRoute
+  ProjectsProjectIdExportRoute: typeof ProjectsProjectIdExportRoute
+  ProjectsProjectIdInspectRoute: typeof ProjectsProjectIdInspectRoute
+  ProjectsProjectIdReproduceRoute: typeof ProjectsProjectIdReproduceRoute
+  ProjectsProjectIdRunRoute: typeof ProjectsProjectIdRunRoute
+  ProjectsProjectIdUploadRoute: typeof ProjectsProjectIdUploadRoute
+  ProjectsProjectIdValidateRoute: typeof ProjectsProjectIdValidateRoute
+  ProjectsProjectIdIndexRoute: typeof ProjectsProjectIdIndexRoute
+}
+
+const ProjectsProjectIdRouteChildren: ProjectsProjectIdRouteChildren = {
+  ProjectsProjectIdAnnotateRoute: ProjectsProjectIdAnnotateRoute,
+  ProjectsProjectIdCompareRoute: ProjectsProjectIdCompareRoute,
+  ProjectsProjectIdConfigureRoute: ProjectsProjectIdConfigureRoute,
+  ProjectsProjectIdExportRoute: ProjectsProjectIdExportRoute,
+  ProjectsProjectIdInspectRoute: ProjectsProjectIdInspectRoute,
+  ProjectsProjectIdReproduceRoute: ProjectsProjectIdReproduceRoute,
+  ProjectsProjectIdRunRoute: ProjectsProjectIdRunRoute,
+  ProjectsProjectIdUploadRoute: ProjectsProjectIdUploadRoute,
+  ProjectsProjectIdValidateRoute: ProjectsProjectIdValidateRoute,
+  ProjectsProjectIdIndexRoute: ProjectsProjectIdIndexRoute,
+}
+
+const ProjectsProjectIdRouteWithChildren =
+  ProjectsProjectIdRoute._addFileChildren(ProjectsProjectIdRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LearnRoute: LearnRouteWithChildren,
   NewRoute: NewRoute,
   WorkspaceRoute: WorkspaceRouteWithChildren,
+  ProjectsProjectIdRoute: ProjectsProjectIdRouteWithChildren,
+  ProjectsNewRoute: ProjectsNewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
