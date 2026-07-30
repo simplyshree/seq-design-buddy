@@ -9,49 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WorkspaceRouteImport } from './routes/workspace'
-import { Route as NewRouteImport } from './routes/new'
-import { Route as LearnRouteImport } from './routes/learn'
+import { Route as WorkflowRouteImport } from './routes/workflow'
+import { Route as GlossaryRouteImport } from './routes/glossary'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WorkspaceValidateRouteImport } from './routes/workspace.validate'
-import { Route as WorkspaceUploadRouteImport } from './routes/workspace.upload'
-import { Route as WorkspaceRunRouteImport } from './routes/workspace.run'
-import { Route as WorkspaceReproduceRouteImport } from './routes/workspace.reproduce'
-import { Route as WorkspaceInspectRouteImport } from './routes/workspace.inspect'
-import { Route as WorkspaceExportRouteImport } from './routes/workspace.export'
-import { Route as WorkspaceConfigureRouteImport } from './routes/workspace.configure'
-import { Route as WorkspaceCompareRouteImport } from './routes/workspace.compare'
-import { Route as WorkspaceAnnotateRouteImport } from './routes/workspace.annotate'
-import { Route as ProjectsNewRouteImport } from './routes/projects.new'
-import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
-import { Route as LearnHpcRouteImport } from './routes/learn.hpc'
-import { Route as LearnGlossaryRouteImport } from './routes/learn.glossary'
-import { Route as LearnColabRouteImport } from './routes/learn.colab'
-import { Route as LearnArtifactsRouteImport } from './routes/learn.artifacts'
-import { Route as ProjectsProjectIdIndexRouteImport } from './routes/projects.$projectId.index'
-import { Route as ProjectsProjectIdValidateRouteImport } from './routes/projects.$projectId.validate'
-import { Route as ProjectsProjectIdUploadRouteImport } from './routes/projects.$projectId.upload'
-import { Route as ProjectsProjectIdRunRouteImport } from './routes/projects.$projectId.run'
-import { Route as ProjectsProjectIdReproduceRouteImport } from './routes/projects.$projectId.reproduce'
-import { Route as ProjectsProjectIdInspectRouteImport } from './routes/projects.$projectId.inspect'
-import { Route as ProjectsProjectIdExportRouteImport } from './routes/projects.$projectId.export'
-import { Route as ProjectsProjectIdConfigureRouteImport } from './routes/projects.$projectId.configure'
-import { Route as ProjectsProjectIdCompareRouteImport } from './routes/projects.$projectId.compare'
-import { Route as ProjectsProjectIdAnnotateRouteImport } from './routes/projects.$projectId.annotate'
+import { Route as ToolsSeqtrainerRouteImport } from './routes/tools.seqtrainer'
+import { Route as ToolsSbolValidatorRouteImport } from './routes/tools.sbol-validator'
+import { Route as ToolsSbolCanvasRouteImport } from './routes/tools.sbol-canvas'
+import { Route as ToolsBenchlabRouteImport } from './routes/tools.benchlab'
 
-const WorkspaceRoute = WorkspaceRouteImport.update({
-  id: '/workspace',
-  path: '/workspace',
+const WorkflowRoute = WorkflowRouteImport.update({
+  id: '/workflow',
+  path: '/workflow',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NewRoute = NewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LearnRoute = LearnRouteImport.update({
-  id: '/learn',
-  path: '/learn',
+const GlossaryRoute = GlossaryRouteImport.update({
+  id: '/glossary',
+  path: '/glossary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -59,356 +32,109 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WorkspaceValidateRoute = WorkspaceValidateRouteImport.update({
-  id: '/validate',
-  path: '/validate',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceUploadRoute = WorkspaceUploadRouteImport.update({
-  id: '/upload',
-  path: '/upload',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceRunRoute = WorkspaceRunRouteImport.update({
-  id: '/run',
-  path: '/run',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceReproduceRoute = WorkspaceReproduceRouteImport.update({
-  id: '/reproduce',
-  path: '/reproduce',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceInspectRoute = WorkspaceInspectRouteImport.update({
-  id: '/inspect',
-  path: '/inspect',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceExportRoute = WorkspaceExportRouteImport.update({
-  id: '/export',
-  path: '/export',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceConfigureRoute = WorkspaceConfigureRouteImport.update({
-  id: '/configure',
-  path: '/configure',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceCompareRoute = WorkspaceCompareRouteImport.update({
-  id: '/compare',
-  path: '/compare',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const WorkspaceAnnotateRoute = WorkspaceAnnotateRouteImport.update({
-  id: '/annotate',
-  path: '/annotate',
-  getParentRoute: () => WorkspaceRoute,
-} as any)
-const ProjectsNewRoute = ProjectsNewRouteImport.update({
-  id: '/projects/new',
-  path: '/projects/new',
+const ToolsSeqtrainerRoute = ToolsSeqtrainerRouteImport.update({
+  id: '/tools/seqtrainer',
+  path: '/tools/seqtrainer',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
-  id: '/projects/$projectId',
-  path: '/projects/$projectId',
+const ToolsSbolValidatorRoute = ToolsSbolValidatorRouteImport.update({
+  id: '/tools/sbol-validator',
+  path: '/tools/sbol-validator',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LearnHpcRoute = LearnHpcRouteImport.update({
-  id: '/hpc',
-  path: '/hpc',
-  getParentRoute: () => LearnRoute,
+const ToolsSbolCanvasRoute = ToolsSbolCanvasRouteImport.update({
+  id: '/tools/sbol-canvas',
+  path: '/tools/sbol-canvas',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const LearnGlossaryRoute = LearnGlossaryRouteImport.update({
-  id: '/glossary',
-  path: '/glossary',
-  getParentRoute: () => LearnRoute,
+const ToolsBenchlabRoute = ToolsBenchlabRouteImport.update({
+  id: '/tools/benchlab',
+  path: '/tools/benchlab',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const LearnColabRoute = LearnColabRouteImport.update({
-  id: '/colab',
-  path: '/colab',
-  getParentRoute: () => LearnRoute,
-} as any)
-const LearnArtifactsRoute = LearnArtifactsRouteImport.update({
-  id: '/artifacts',
-  path: '/artifacts',
-  getParentRoute: () => LearnRoute,
-} as any)
-const ProjectsProjectIdIndexRoute = ProjectsProjectIdIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ProjectsProjectIdRoute,
-} as any)
-const ProjectsProjectIdValidateRoute =
-  ProjectsProjectIdValidateRouteImport.update({
-    id: '/validate',
-    path: '/validate',
-    getParentRoute: () => ProjectsProjectIdRoute,
-  } as any)
-const ProjectsProjectIdUploadRoute = ProjectsProjectIdUploadRouteImport.update({
-  id: '/upload',
-  path: '/upload',
-  getParentRoute: () => ProjectsProjectIdRoute,
-} as any)
-const ProjectsProjectIdRunRoute = ProjectsProjectIdRunRouteImport.update({
-  id: '/run',
-  path: '/run',
-  getParentRoute: () => ProjectsProjectIdRoute,
-} as any)
-const ProjectsProjectIdReproduceRoute =
-  ProjectsProjectIdReproduceRouteImport.update({
-    id: '/reproduce',
-    path: '/reproduce',
-    getParentRoute: () => ProjectsProjectIdRoute,
-  } as any)
-const ProjectsProjectIdInspectRoute =
-  ProjectsProjectIdInspectRouteImport.update({
-    id: '/inspect',
-    path: '/inspect',
-    getParentRoute: () => ProjectsProjectIdRoute,
-  } as any)
-const ProjectsProjectIdExportRoute = ProjectsProjectIdExportRouteImport.update({
-  id: '/export',
-  path: '/export',
-  getParentRoute: () => ProjectsProjectIdRoute,
-} as any)
-const ProjectsProjectIdConfigureRoute =
-  ProjectsProjectIdConfigureRouteImport.update({
-    id: '/configure',
-    path: '/configure',
-    getParentRoute: () => ProjectsProjectIdRoute,
-  } as any)
-const ProjectsProjectIdCompareRoute =
-  ProjectsProjectIdCompareRouteImport.update({
-    id: '/compare',
-    path: '/compare',
-    getParentRoute: () => ProjectsProjectIdRoute,
-  } as any)
-const ProjectsProjectIdAnnotateRoute =
-  ProjectsProjectIdAnnotateRouteImport.update({
-    id: '/annotate',
-    path: '/annotate',
-    getParentRoute: () => ProjectsProjectIdRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/learn': typeof LearnRouteWithChildren
-  '/new': typeof NewRoute
-  '/workspace': typeof WorkspaceRouteWithChildren
-  '/learn/artifacts': typeof LearnArtifactsRoute
-  '/learn/colab': typeof LearnColabRoute
-  '/learn/glossary': typeof LearnGlossaryRoute
-  '/learn/hpc': typeof LearnHpcRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
-  '/projects/new': typeof ProjectsNewRoute
-  '/workspace/annotate': typeof WorkspaceAnnotateRoute
-  '/workspace/compare': typeof WorkspaceCompareRoute
-  '/workspace/configure': typeof WorkspaceConfigureRoute
-  '/workspace/export': typeof WorkspaceExportRoute
-  '/workspace/inspect': typeof WorkspaceInspectRoute
-  '/workspace/reproduce': typeof WorkspaceReproduceRoute
-  '/workspace/run': typeof WorkspaceRunRoute
-  '/workspace/upload': typeof WorkspaceUploadRoute
-  '/workspace/validate': typeof WorkspaceValidateRoute
-  '/projects/$projectId/annotate': typeof ProjectsProjectIdAnnotateRoute
-  '/projects/$projectId/compare': typeof ProjectsProjectIdCompareRoute
-  '/projects/$projectId/configure': typeof ProjectsProjectIdConfigureRoute
-  '/projects/$projectId/export': typeof ProjectsProjectIdExportRoute
-  '/projects/$projectId/inspect': typeof ProjectsProjectIdInspectRoute
-  '/projects/$projectId/reproduce': typeof ProjectsProjectIdReproduceRoute
-  '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
-  '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
-  '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
-  '/projects/$projectId/': typeof ProjectsProjectIdIndexRoute
+  '/glossary': typeof GlossaryRoute
+  '/workflow': typeof WorkflowRoute
+  '/tools/benchlab': typeof ToolsBenchlabRoute
+  '/tools/sbol-canvas': typeof ToolsSbolCanvasRoute
+  '/tools/sbol-validator': typeof ToolsSbolValidatorRoute
+  '/tools/seqtrainer': typeof ToolsSeqtrainerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/learn': typeof LearnRouteWithChildren
-  '/new': typeof NewRoute
-  '/workspace': typeof WorkspaceRouteWithChildren
-  '/learn/artifacts': typeof LearnArtifactsRoute
-  '/learn/colab': typeof LearnColabRoute
-  '/learn/glossary': typeof LearnGlossaryRoute
-  '/learn/hpc': typeof LearnHpcRoute
-  '/projects/new': typeof ProjectsNewRoute
-  '/workspace/annotate': typeof WorkspaceAnnotateRoute
-  '/workspace/compare': typeof WorkspaceCompareRoute
-  '/workspace/configure': typeof WorkspaceConfigureRoute
-  '/workspace/export': typeof WorkspaceExportRoute
-  '/workspace/inspect': typeof WorkspaceInspectRoute
-  '/workspace/reproduce': typeof WorkspaceReproduceRoute
-  '/workspace/run': typeof WorkspaceRunRoute
-  '/workspace/upload': typeof WorkspaceUploadRoute
-  '/workspace/validate': typeof WorkspaceValidateRoute
-  '/projects/$projectId/annotate': typeof ProjectsProjectIdAnnotateRoute
-  '/projects/$projectId/compare': typeof ProjectsProjectIdCompareRoute
-  '/projects/$projectId/configure': typeof ProjectsProjectIdConfigureRoute
-  '/projects/$projectId/export': typeof ProjectsProjectIdExportRoute
-  '/projects/$projectId/inspect': typeof ProjectsProjectIdInspectRoute
-  '/projects/$projectId/reproduce': typeof ProjectsProjectIdReproduceRoute
-  '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
-  '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
-  '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
-  '/projects/$projectId': typeof ProjectsProjectIdIndexRoute
+  '/glossary': typeof GlossaryRoute
+  '/workflow': typeof WorkflowRoute
+  '/tools/benchlab': typeof ToolsBenchlabRoute
+  '/tools/sbol-canvas': typeof ToolsSbolCanvasRoute
+  '/tools/sbol-validator': typeof ToolsSbolValidatorRoute
+  '/tools/seqtrainer': typeof ToolsSeqtrainerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/learn': typeof LearnRouteWithChildren
-  '/new': typeof NewRoute
-  '/workspace': typeof WorkspaceRouteWithChildren
-  '/learn/artifacts': typeof LearnArtifactsRoute
-  '/learn/colab': typeof LearnColabRoute
-  '/learn/glossary': typeof LearnGlossaryRoute
-  '/learn/hpc': typeof LearnHpcRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRouteWithChildren
-  '/projects/new': typeof ProjectsNewRoute
-  '/workspace/annotate': typeof WorkspaceAnnotateRoute
-  '/workspace/compare': typeof WorkspaceCompareRoute
-  '/workspace/configure': typeof WorkspaceConfigureRoute
-  '/workspace/export': typeof WorkspaceExportRoute
-  '/workspace/inspect': typeof WorkspaceInspectRoute
-  '/workspace/reproduce': typeof WorkspaceReproduceRoute
-  '/workspace/run': typeof WorkspaceRunRoute
-  '/workspace/upload': typeof WorkspaceUploadRoute
-  '/workspace/validate': typeof WorkspaceValidateRoute
-  '/projects/$projectId/annotate': typeof ProjectsProjectIdAnnotateRoute
-  '/projects/$projectId/compare': typeof ProjectsProjectIdCompareRoute
-  '/projects/$projectId/configure': typeof ProjectsProjectIdConfigureRoute
-  '/projects/$projectId/export': typeof ProjectsProjectIdExportRoute
-  '/projects/$projectId/inspect': typeof ProjectsProjectIdInspectRoute
-  '/projects/$projectId/reproduce': typeof ProjectsProjectIdReproduceRoute
-  '/projects/$projectId/run': typeof ProjectsProjectIdRunRoute
-  '/projects/$projectId/upload': typeof ProjectsProjectIdUploadRoute
-  '/projects/$projectId/validate': typeof ProjectsProjectIdValidateRoute
-  '/projects/$projectId/': typeof ProjectsProjectIdIndexRoute
+  '/glossary': typeof GlossaryRoute
+  '/workflow': typeof WorkflowRoute
+  '/tools/benchlab': typeof ToolsBenchlabRoute
+  '/tools/sbol-canvas': typeof ToolsSbolCanvasRoute
+  '/tools/sbol-validator': typeof ToolsSbolValidatorRoute
+  '/tools/seqtrainer': typeof ToolsSeqtrainerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/learn'
-    | '/new'
-    | '/workspace'
-    | '/learn/artifacts'
-    | '/learn/colab'
-    | '/learn/glossary'
-    | '/learn/hpc'
-    | '/projects/$projectId'
-    | '/projects/new'
-    | '/workspace/annotate'
-    | '/workspace/compare'
-    | '/workspace/configure'
-    | '/workspace/export'
-    | '/workspace/inspect'
-    | '/workspace/reproduce'
-    | '/workspace/run'
-    | '/workspace/upload'
-    | '/workspace/validate'
-    | '/projects/$projectId/annotate'
-    | '/projects/$projectId/compare'
-    | '/projects/$projectId/configure'
-    | '/projects/$projectId/export'
-    | '/projects/$projectId/inspect'
-    | '/projects/$projectId/reproduce'
-    | '/projects/$projectId/run'
-    | '/projects/$projectId/upload'
-    | '/projects/$projectId/validate'
-    | '/projects/$projectId/'
+    | '/glossary'
+    | '/workflow'
+    | '/tools/benchlab'
+    | '/tools/sbol-canvas'
+    | '/tools/sbol-validator'
+    | '/tools/seqtrainer'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/learn'
-    | '/new'
-    | '/workspace'
-    | '/learn/artifacts'
-    | '/learn/colab'
-    | '/learn/glossary'
-    | '/learn/hpc'
-    | '/projects/new'
-    | '/workspace/annotate'
-    | '/workspace/compare'
-    | '/workspace/configure'
-    | '/workspace/export'
-    | '/workspace/inspect'
-    | '/workspace/reproduce'
-    | '/workspace/run'
-    | '/workspace/upload'
-    | '/workspace/validate'
-    | '/projects/$projectId/annotate'
-    | '/projects/$projectId/compare'
-    | '/projects/$projectId/configure'
-    | '/projects/$projectId/export'
-    | '/projects/$projectId/inspect'
-    | '/projects/$projectId/reproduce'
-    | '/projects/$projectId/run'
-    | '/projects/$projectId/upload'
-    | '/projects/$projectId/validate'
-    | '/projects/$projectId'
+    | '/glossary'
+    | '/workflow'
+    | '/tools/benchlab'
+    | '/tools/sbol-canvas'
+    | '/tools/sbol-validator'
+    | '/tools/seqtrainer'
   id:
     | '__root__'
     | '/'
-    | '/learn'
-    | '/new'
-    | '/workspace'
-    | '/learn/artifacts'
-    | '/learn/colab'
-    | '/learn/glossary'
-    | '/learn/hpc'
-    | '/projects/$projectId'
-    | '/projects/new'
-    | '/workspace/annotate'
-    | '/workspace/compare'
-    | '/workspace/configure'
-    | '/workspace/export'
-    | '/workspace/inspect'
-    | '/workspace/reproduce'
-    | '/workspace/run'
-    | '/workspace/upload'
-    | '/workspace/validate'
-    | '/projects/$projectId/annotate'
-    | '/projects/$projectId/compare'
-    | '/projects/$projectId/configure'
-    | '/projects/$projectId/export'
-    | '/projects/$projectId/inspect'
-    | '/projects/$projectId/reproduce'
-    | '/projects/$projectId/run'
-    | '/projects/$projectId/upload'
-    | '/projects/$projectId/validate'
-    | '/projects/$projectId/'
+    | '/glossary'
+    | '/workflow'
+    | '/tools/benchlab'
+    | '/tools/sbol-canvas'
+    | '/tools/sbol-validator'
+    | '/tools/seqtrainer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LearnRoute: typeof LearnRouteWithChildren
-  NewRoute: typeof NewRoute
-  WorkspaceRoute: typeof WorkspaceRouteWithChildren
-  ProjectsProjectIdRoute: typeof ProjectsProjectIdRouteWithChildren
-  ProjectsNewRoute: typeof ProjectsNewRoute
+  GlossaryRoute: typeof GlossaryRoute
+  WorkflowRoute: typeof WorkflowRoute
+  ToolsBenchlabRoute: typeof ToolsBenchlabRoute
+  ToolsSbolCanvasRoute: typeof ToolsSbolCanvasRoute
+  ToolsSbolValidatorRoute: typeof ToolsSbolValidatorRoute
+  ToolsSeqtrainerRoute: typeof ToolsSeqtrainerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/workspace': {
-      id: '/workspace'
-      path: '/workspace'
-      fullPath: '/workspace'
-      preLoaderRoute: typeof WorkspaceRouteImport
+    '/workflow': {
+      id: '/workflow'
+      path: '/workflow'
+      fullPath: '/workflow'
+      preLoaderRoute: typeof WorkflowRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/new': {
-      id: '/new'
-      path: '/new'
-      fullPath: '/new'
-      preLoaderRoute: typeof NewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/learn': {
-      id: '/learn'
-      path: '/learn'
-      fullPath: '/learn'
-      preLoaderRoute: typeof LearnRouteImport
+    '/glossary': {
+      id: '/glossary'
+      path: '/glossary'
+      fullPath: '/glossary'
+      preLoaderRoute: typeof GlossaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -418,264 +144,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/workspace/validate': {
-      id: '/workspace/validate'
-      path: '/validate'
-      fullPath: '/workspace/validate'
-      preLoaderRoute: typeof WorkspaceValidateRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/upload': {
-      id: '/workspace/upload'
-      path: '/upload'
-      fullPath: '/workspace/upload'
-      preLoaderRoute: typeof WorkspaceUploadRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/run': {
-      id: '/workspace/run'
-      path: '/run'
-      fullPath: '/workspace/run'
-      preLoaderRoute: typeof WorkspaceRunRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/reproduce': {
-      id: '/workspace/reproduce'
-      path: '/reproduce'
-      fullPath: '/workspace/reproduce'
-      preLoaderRoute: typeof WorkspaceReproduceRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/inspect': {
-      id: '/workspace/inspect'
-      path: '/inspect'
-      fullPath: '/workspace/inspect'
-      preLoaderRoute: typeof WorkspaceInspectRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/export': {
-      id: '/workspace/export'
-      path: '/export'
-      fullPath: '/workspace/export'
-      preLoaderRoute: typeof WorkspaceExportRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/configure': {
-      id: '/workspace/configure'
-      path: '/configure'
-      fullPath: '/workspace/configure'
-      preLoaderRoute: typeof WorkspaceConfigureRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/compare': {
-      id: '/workspace/compare'
-      path: '/compare'
-      fullPath: '/workspace/compare'
-      preLoaderRoute: typeof WorkspaceCompareRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/workspace/annotate': {
-      id: '/workspace/annotate'
-      path: '/annotate'
-      fullPath: '/workspace/annotate'
-      preLoaderRoute: typeof WorkspaceAnnotateRouteImport
-      parentRoute: typeof WorkspaceRoute
-    }
-    '/projects/new': {
-      id: '/projects/new'
-      path: '/projects/new'
-      fullPath: '/projects/new'
-      preLoaderRoute: typeof ProjectsNewRouteImport
+    '/tools/seqtrainer': {
+      id: '/tools/seqtrainer'
+      path: '/tools/seqtrainer'
+      fullPath: '/tools/seqtrainer'
+      preLoaderRoute: typeof ToolsSeqtrainerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/$projectId': {
-      id: '/projects/$projectId'
-      path: '/projects/$projectId'
-      fullPath: '/projects/$projectId'
-      preLoaderRoute: typeof ProjectsProjectIdRouteImport
+    '/tools/sbol-validator': {
+      id: '/tools/sbol-validator'
+      path: '/tools/sbol-validator'
+      fullPath: '/tools/sbol-validator'
+      preLoaderRoute: typeof ToolsSbolValidatorRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/learn/hpc': {
-      id: '/learn/hpc'
-      path: '/hpc'
-      fullPath: '/learn/hpc'
-      preLoaderRoute: typeof LearnHpcRouteImport
-      parentRoute: typeof LearnRoute
+    '/tools/sbol-canvas': {
+      id: '/tools/sbol-canvas'
+      path: '/tools/sbol-canvas'
+      fullPath: '/tools/sbol-canvas'
+      preLoaderRoute: typeof ToolsSbolCanvasRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/learn/glossary': {
-      id: '/learn/glossary'
-      path: '/glossary'
-      fullPath: '/learn/glossary'
-      preLoaderRoute: typeof LearnGlossaryRouteImport
-      parentRoute: typeof LearnRoute
-    }
-    '/learn/colab': {
-      id: '/learn/colab'
-      path: '/colab'
-      fullPath: '/learn/colab'
-      preLoaderRoute: typeof LearnColabRouteImport
-      parentRoute: typeof LearnRoute
-    }
-    '/learn/artifacts': {
-      id: '/learn/artifacts'
-      path: '/artifacts'
-      fullPath: '/learn/artifacts'
-      preLoaderRoute: typeof LearnArtifactsRouteImport
-      parentRoute: typeof LearnRoute
-    }
-    '/projects/$projectId/': {
-      id: '/projects/$projectId/'
-      path: '/'
-      fullPath: '/projects/$projectId/'
-      preLoaderRoute: typeof ProjectsProjectIdIndexRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/validate': {
-      id: '/projects/$projectId/validate'
-      path: '/validate'
-      fullPath: '/projects/$projectId/validate'
-      preLoaderRoute: typeof ProjectsProjectIdValidateRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/upload': {
-      id: '/projects/$projectId/upload'
-      path: '/upload'
-      fullPath: '/projects/$projectId/upload'
-      preLoaderRoute: typeof ProjectsProjectIdUploadRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/run': {
-      id: '/projects/$projectId/run'
-      path: '/run'
-      fullPath: '/projects/$projectId/run'
-      preLoaderRoute: typeof ProjectsProjectIdRunRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/reproduce': {
-      id: '/projects/$projectId/reproduce'
-      path: '/reproduce'
-      fullPath: '/projects/$projectId/reproduce'
-      preLoaderRoute: typeof ProjectsProjectIdReproduceRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/inspect': {
-      id: '/projects/$projectId/inspect'
-      path: '/inspect'
-      fullPath: '/projects/$projectId/inspect'
-      preLoaderRoute: typeof ProjectsProjectIdInspectRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/export': {
-      id: '/projects/$projectId/export'
-      path: '/export'
-      fullPath: '/projects/$projectId/export'
-      preLoaderRoute: typeof ProjectsProjectIdExportRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/configure': {
-      id: '/projects/$projectId/configure'
-      path: '/configure'
-      fullPath: '/projects/$projectId/configure'
-      preLoaderRoute: typeof ProjectsProjectIdConfigureRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/compare': {
-      id: '/projects/$projectId/compare'
-      path: '/compare'
-      fullPath: '/projects/$projectId/compare'
-      preLoaderRoute: typeof ProjectsProjectIdCompareRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
-    }
-    '/projects/$projectId/annotate': {
-      id: '/projects/$projectId/annotate'
-      path: '/annotate'
-      fullPath: '/projects/$projectId/annotate'
-      preLoaderRoute: typeof ProjectsProjectIdAnnotateRouteImport
-      parentRoute: typeof ProjectsProjectIdRoute
+    '/tools/benchlab': {
+      id: '/tools/benchlab'
+      path: '/tools/benchlab'
+      fullPath: '/tools/benchlab'
+      preLoaderRoute: typeof ToolsBenchlabRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface LearnRouteChildren {
-  LearnArtifactsRoute: typeof LearnArtifactsRoute
-  LearnColabRoute: typeof LearnColabRoute
-  LearnGlossaryRoute: typeof LearnGlossaryRoute
-  LearnHpcRoute: typeof LearnHpcRoute
-}
-
-const LearnRouteChildren: LearnRouteChildren = {
-  LearnArtifactsRoute: LearnArtifactsRoute,
-  LearnColabRoute: LearnColabRoute,
-  LearnGlossaryRoute: LearnGlossaryRoute,
-  LearnHpcRoute: LearnHpcRoute,
-}
-
-const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
-
-interface WorkspaceRouteChildren {
-  WorkspaceAnnotateRoute: typeof WorkspaceAnnotateRoute
-  WorkspaceCompareRoute: typeof WorkspaceCompareRoute
-  WorkspaceConfigureRoute: typeof WorkspaceConfigureRoute
-  WorkspaceExportRoute: typeof WorkspaceExportRoute
-  WorkspaceInspectRoute: typeof WorkspaceInspectRoute
-  WorkspaceReproduceRoute: typeof WorkspaceReproduceRoute
-  WorkspaceRunRoute: typeof WorkspaceRunRoute
-  WorkspaceUploadRoute: typeof WorkspaceUploadRoute
-  WorkspaceValidateRoute: typeof WorkspaceValidateRoute
-}
-
-const WorkspaceRouteChildren: WorkspaceRouteChildren = {
-  WorkspaceAnnotateRoute: WorkspaceAnnotateRoute,
-  WorkspaceCompareRoute: WorkspaceCompareRoute,
-  WorkspaceConfigureRoute: WorkspaceConfigureRoute,
-  WorkspaceExportRoute: WorkspaceExportRoute,
-  WorkspaceInspectRoute: WorkspaceInspectRoute,
-  WorkspaceReproduceRoute: WorkspaceReproduceRoute,
-  WorkspaceRunRoute: WorkspaceRunRoute,
-  WorkspaceUploadRoute: WorkspaceUploadRoute,
-  WorkspaceValidateRoute: WorkspaceValidateRoute,
-}
-
-const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
-  WorkspaceRouteChildren,
-)
-
-interface ProjectsProjectIdRouteChildren {
-  ProjectsProjectIdAnnotateRoute: typeof ProjectsProjectIdAnnotateRoute
-  ProjectsProjectIdCompareRoute: typeof ProjectsProjectIdCompareRoute
-  ProjectsProjectIdConfigureRoute: typeof ProjectsProjectIdConfigureRoute
-  ProjectsProjectIdExportRoute: typeof ProjectsProjectIdExportRoute
-  ProjectsProjectIdInspectRoute: typeof ProjectsProjectIdInspectRoute
-  ProjectsProjectIdReproduceRoute: typeof ProjectsProjectIdReproduceRoute
-  ProjectsProjectIdRunRoute: typeof ProjectsProjectIdRunRoute
-  ProjectsProjectIdUploadRoute: typeof ProjectsProjectIdUploadRoute
-  ProjectsProjectIdValidateRoute: typeof ProjectsProjectIdValidateRoute
-  ProjectsProjectIdIndexRoute: typeof ProjectsProjectIdIndexRoute
-}
-
-const ProjectsProjectIdRouteChildren: ProjectsProjectIdRouteChildren = {
-  ProjectsProjectIdAnnotateRoute: ProjectsProjectIdAnnotateRoute,
-  ProjectsProjectIdCompareRoute: ProjectsProjectIdCompareRoute,
-  ProjectsProjectIdConfigureRoute: ProjectsProjectIdConfigureRoute,
-  ProjectsProjectIdExportRoute: ProjectsProjectIdExportRoute,
-  ProjectsProjectIdInspectRoute: ProjectsProjectIdInspectRoute,
-  ProjectsProjectIdReproduceRoute: ProjectsProjectIdReproduceRoute,
-  ProjectsProjectIdRunRoute: ProjectsProjectIdRunRoute,
-  ProjectsProjectIdUploadRoute: ProjectsProjectIdUploadRoute,
-  ProjectsProjectIdValidateRoute: ProjectsProjectIdValidateRoute,
-  ProjectsProjectIdIndexRoute: ProjectsProjectIdIndexRoute,
-}
-
-const ProjectsProjectIdRouteWithChildren =
-  ProjectsProjectIdRoute._addFileChildren(ProjectsProjectIdRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LearnRoute: LearnRouteWithChildren,
-  NewRoute: NewRoute,
-  WorkspaceRoute: WorkspaceRouteWithChildren,
-  ProjectsProjectIdRoute: ProjectsProjectIdRouteWithChildren,
-  ProjectsNewRoute: ProjectsNewRoute,
+  GlossaryRoute: GlossaryRoute,
+  WorkflowRoute: WorkflowRoute,
+  ToolsBenchlabRoute: ToolsBenchlabRoute,
+  ToolsSbolCanvasRoute: ToolsSbolCanvasRoute,
+  ToolsSbolValidatorRoute: ToolsSbolValidatorRoute,
+  ToolsSeqtrainerRoute: ToolsSeqtrainerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
