@@ -47,3 +47,6 @@ artifacts/
 *.njsproj
 *.sln
 *.sw?
+
+# Netlify local state
+.netlify/
