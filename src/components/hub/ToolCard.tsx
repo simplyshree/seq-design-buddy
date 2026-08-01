@@ -24,6 +24,10 @@ export function ToolCard({ tool }: { tool: ToolSummary }) {
           <dd className="mt-1 text-muted-foreground">{tool.when}</dd>
         </div>
         <div>
+          <dt className="font-semibold text-foreground">Do not use it when</dt>
+          <dd className="mt-1 text-muted-foreground">{tool.avoid}</dd>
+        </div>
+        <div>
           <dt className="font-semibold text-foreground">Expected input</dt>
           <dd className="mt-1 text-muted-foreground">{tool.input}</dd>
         </div>
@@ -34,6 +38,10 @@ export function ToolCard({ tool }: { tool: ToolSummary }) {
         <div>
           <dt className="font-semibold text-foreground">Where it runs</dt>
           <dd className="mt-1 text-muted-foreground">{tool.runs}</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">Part of this site?</dt>
+          <dd className="mt-1 text-muted-foreground">{tool.status}</dd>
         </div>
       </dl>
       <div className="mt-auto flex flex-wrap gap-2 pt-6">

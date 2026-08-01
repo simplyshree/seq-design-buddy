@@ -21,12 +21,12 @@ External links open the original repository or official application in a new tab
 
 ## Site routes
 
-- `/` - overview, four tool cards, workflow summary, and file handoffs.
-- `/tools/benchlab` - detailed BenchLab setup, beginner workflow, dataset example, and outputs.
-- `/tools/seqtrainer` - SeqTrainer annotation prerequisites, dummy smoke command, and DNABERT2 command.
-- `/tools/sbol-validator` - external Validator handoff instructions.
-- `/tools/sbol-canvas` - external Canvas handoff instructions.
-- `/workflow` - four-stage beginner workflow from benchmark planning to visualization.
+- `/` - overview, exactly four tool cards, workflow summary, and file handoffs.
+- `/tools/benchlab` - BenchLab setup, small local baselines, plan-only exports, JSON replay order, and outputs.
+- `/tools/seqtrainer` - SeqTrainer annotation prerequisites, dummy smoke command, DNABERT2 command, branch-specific SBOL export, and outputs.
+- `/tools/sbol-validator` - external Validator validation-only and validation-plus-conversion handoff instructions.
+- `/tools/sbol-canvas` - external Canvas import instructions for SBOL2 RDF/XML `.rdf` compatibility files.
+- `/workflow` - four beginner paths plus a static file handoff table.
 - `/glossary` - plain-language reference terms.
 
 ## Development
@@ -72,7 +72,7 @@ The hub uses a light scientific interface with high-contrast text, semantic head
 
 ## Deployment
 
-The existing Vite/TanStack Start deployment stack is preserved. Build with `npm run build`; the generated output remains compatible with the repository's existing Cloudflare/Nitro deployment setup. The hub has no runtime service dependencies.
+The existing Vite/TanStack Start deployment stack is preserved. Build with `npm run build`; the generated output remains compatible with the repository's Vercel deployment flow. The hub has no runtime service dependencies and should not require credentials, storage, server functions, or API routes.
 
 ## Limitations
 

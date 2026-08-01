@@ -145,11 +145,12 @@ function HomePage() {
             </h2>
             <p className="mt-3 text-muted-foreground">
               The handoffs happen on your computer or in the original services. Seq Design Buddy
-              only explains what to expect.
+              only explains what to expect and which file to carry forward.
             </p>
             <ScientificWarning>
               Model training and checkpoint creation happen in SeqTrainer notebooks, Google Colab,
-              or an HPC system. BenchLab does not automatically create a DNABERT2 checkpoint.
+              or an HPC system. BenchLab does not automatically create a DNABERT2 checkpoint, and a
+              plan-only export may have empty metrics or predictions.
             </ScientificWarning>
           </div>
           <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
@@ -158,14 +159,14 @@ function HomePage() {
                 ["Labeled CSV/TSV", "SeqTrainer BenchLab"],
                 [
                   "run_config.json and benchmark bundle",
-                  "External model training or completed checkpoint",
+                  "External training job or a completed checkpoint",
                 ],
                 [
                   "SeqTrainer promoter annotation",
-                  "Annotated GenBank + predictions CSV + annotation manifest",
+                  "Annotated .gb + predictions.csv + annotation_manifest.json",
                 ],
-                ["SBOL3 export", "SBOL Validator"],
-                ["Validated SBOL3", "SBOL Canvas"],
+                ["Optional SBOL3 .nt export", "SBOL Validator for validation"],
+                ["Optional SBOL2 .rdf compatibility file", "SBOL Canvas import"],
               ].map(([from, to], index) => (
                 <li key={from} className="relative flex gap-4 pb-6 last:pb-0">
                   <div className="flex w-5 shrink-0 flex-col items-center">

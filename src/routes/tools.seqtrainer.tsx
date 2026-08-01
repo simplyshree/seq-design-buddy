@@ -57,6 +57,19 @@ const realCommand = [
   "  --predictions-csv outputs/annotations/predictions.csv \\",
   "  --manifest outputs/annotations/annotation_manifest.json",
 ].join("\n");
+const sbolCommand = [
+  "git checkout annotation-sbol3-labeled-promoters",
+  "",
+  "seqtrainer annotate promoters input.gb \\",
+  "  --model-family dnabert2 \\",
+  "  --checkpoint outputs/benchmarks/dnabert2/checkpoints/best_model.pt \\",
+  "  --benchmark-manifest outputs/benchmarks/dnabert2/manifest.json \\",
+  "  --output outputs/annotations/annotated_plasmid.gb \\",
+  "  --predictions-csv outputs/annotations/predictions.csv \\",
+  "  --manifest outputs/annotations/annotation_manifest.json \\",
+  "  --sbol-output outputs/annotations/annotated.nt \\",
+  "  --sbol2-output outputs/annotations/annotated_sbol2.rdf",
+].join("\n");
 
 function SeqTrainerPage() {
   return (
@@ -67,7 +80,7 @@ function SeqTrainerPage() {
         description="SeqTrainer can scan a GenBank plasmid with a trained promoter-classification model and add computationally predicted promoter features while preserving existing annotations."
       />
       <div className="mx-auto max-w-5xl px-4">
-        <GuideSection title="What this annotation does">
+        <GuideSection title="What this tool is">
           <p className="text-sm leading-7 text-muted-foreground">
             The annotation command slides a fixed-size window across a plasmid, scores each window,
             and writes predicted features separately from known features. These are model
@@ -78,7 +91,26 @@ function SeqTrainerPage() {
             output="Annotated GenBank, predictions CSV, and annotation manifest."
           />
         </GuideSection>
-        <GuideSection title="Prerequisites">
+        <GuideSection title="Use this tool when">
+          <ul className="space-y-2 text-sm leading-6 text-muted-foreground">
+            <li>
+              You want to annotate an existing GenBank plasmid with predicted promoter features.
+            </li>
+            <li>You have a completed benchmark checkpoint and the matching benchmark manifest.</li>
+            <li>You want a quick dummy smoke test before doing a heavier real scan.</li>
+          </ul>
+        </GuideSection>
+        <GuideSection title="Do not use it when">
+          <ul className="space-y-2 text-sm leading-6 text-muted-foreground">
+            <li>You only have a BenchLab plan and no trained checkpoint yet.</li>
+            <li>You need dummy output to represent biological evidence.</li>
+            <li>
+              You need SBOL export from the annotation-mvp branch; use the SBOL export branch for
+              that workflow.
+            </li>
+          </ul>
+        </GuideSection>
+        <GuideSection title="What you need before starting">
           <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
             {[
               "A GenBank plasmid file",
@@ -98,12 +130,20 @@ function SeqTrainerPage() {
           <BeginnerNote>
             <p>
               The checkpoint contains trained model weights. The manifest records model settings and
-              the validation-selected threshold. Seq Design Buddy does not provide either file, and
-              the annotation runs outside this website.
+              the validation-selected threshold. They should come from the same completed benchmark
+              run. Seq Design Buddy does not provide either file, and the annotation runs outside
+              this website.
             </p>
           </BeginnerNote>
         </GuideSection>
-        <GuideSection title="Install annotation support">
+        <GuideSection title="Where the step runs">
+          <p className="text-sm leading-7 text-muted-foreground">
+            SeqTrainer runs in Python on your machine, in Colab, or on HPC. A CPU smoke check can
+            confirm the command path, but dense DNABERT2 scans are slow on Windows CPU and are
+            better suited to GPU or HPC environments.
+          </p>
+        </GuideSection>
+        <GuideSection title="Exact beginner steps">
           <CommandBlock label="Clone the annotation branch" code={install} />
           <div className="grid gap-5 lg:grid-cols-2">
             <CommandBlock
@@ -166,7 +206,37 @@ function SeqTrainerPage() {
             ))}
           </dl>
         </GuideSection>
-        <GuideSection title="Main annotation outputs">
+        <GuideSection title="Branch-specific SBOL export">
+          <p className="text-sm leading-7 text-muted-foreground">
+            The <code className="rounded bg-muted px-1">annotation-mvp</code> branch documents the
+            core GenBank/CSV/manifest annotation workflow. The{" "}
+            <code className="rounded bg-muted px-1">annotation-sbol3-labeled-promoters</code> branch
+            documents validated SBOL export.
+          </p>
+          <CommandBlock label="SBOL export branch command" code={sbolCommand} />
+          <ul className="space-y-3 text-sm leading-6 text-muted-foreground">
+            <li>
+              <strong className="text-foreground">annotated.nt:</strong> canonical SBOL3 N-Triples
+              machine-exchange output.
+            </li>
+            <li>
+              <strong className="text-foreground">annotated_sbol2.rdf:</strong> optional SBOL2
+              RDF/XML compatibility output intended for SBOL Canvas.
+            </li>
+            <li>
+              <strong className="text-foreground">sbol_validation.json:</strong> saved validation
+              diagnostics for the SBOL export.
+            </li>
+          </ul>
+          <BeginnerNote>
+            <p>
+              Do not upload the SBOL3 <code className="rounded bg-muted px-1">.nt</code> file to
+              Canvas for this documented workflow. Use the SBOL2{" "}
+              <code className="rounded bg-muted px-1">.rdf</code> compatibility file.
+            </p>
+          </BeginnerNote>
+        </GuideSection>
+        <GuideSection title="Expected output files">
           <ul className="space-y-3 text-sm leading-6 text-muted-foreground">
             <li>
               <strong className="text-foreground">Annotated GenBank:</strong> original features plus
@@ -182,11 +252,53 @@ function SeqTrainerPage() {
             </li>
           </ul>
         </GuideSection>
+        <GuideSection title="How to confirm success">
+          <ul className="space-y-2 text-sm leading-6 text-muted-foreground">
+            <li>The annotated GenBank file still contains the original plasmid features.</li>
+            <li>
+              The predictions CSV contains scored windows, coordinates, strand, score, and threshold
+              result.
+            </li>
+            <li>
+              The manifest records the checkpoint, benchmark manifest, threshold source, warnings,
+              and command settings.
+            </li>
+            <li>
+              For SBOL export, validation diagnostics are written and invalid SBOL fails locally.
+            </li>
+          </ul>
+        </GuideSection>
+        <GuideSection title="Common problems">
+          <ul className="space-y-2 text-sm leading-6 text-muted-foreground">
+            <li>
+              A checkpoint without its matching manifest is not enough for a trustworthy annotation
+              run.
+            </li>
+            <li>Dummy mode can create files but does not produce scientific predictions.</li>
+            <li>A coarse CPU smoke scan is not the same as a dense scientific scan.</li>
+            <li>
+              Canvas compatibility requires the optional SBOL2 .rdf output, not only the SBOL3 .nt
+              file.
+            </li>
+          </ul>
+        </GuideSection>
+        <GuideSection title="What to do next">
+          <p className="text-sm leading-7 text-muted-foreground">
+            Review the GenBank and CSV outputs first. If SBOL output was created, validate the{" "}
+            <code className="rounded bg-muted px-1">.nt</code> or{" "}
+            <code className="rounded bg-muted px-1">.rdf</code> file with SBOL Validator. Use the{" "}
+            <code className="rounded bg-muted px-1">.rdf</code> compatibility file when moving to
+            SBOL Canvas.
+          </p>
+        </GuideSection>
         <ScientificWarning>
           Promoter predictions are probabilistic computational results. They require experimental
           validation before being treated as confirmed biological functions.
         </ScientificWarning>
-        <section className="flex flex-wrap gap-3 border-t border-border py-10">
+        <section
+          className="flex flex-wrap gap-3 border-t border-border py-10"
+          aria-label="Official repository and documentation links"
+        >
           <ExternalToolLink href="https://github.com/simplyshree/SeqTrainer">
             Open SeqTrainer repository
           </ExternalToolLink>
@@ -201,6 +313,9 @@ function SeqTrainerPage() {
           </ExternalToolLink>
           <ExternalToolLink href="https://github.com/simplyshree/SeqTrainer/tree/annotation-sbol3-labeled-promoters">
             View SBOL3 export branch
+          </ExternalToolLink>
+          <ExternalToolLink href="https://github.com/simplyshree/SeqTrainer/blob/annotation-sbol3-labeled-promoters/docs/annotation/sbol3_export.md">
+            Read SBOL3 export documentation
           </ExternalToolLink>
         </section>
       </div>
