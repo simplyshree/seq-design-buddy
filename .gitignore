@@ -48,5 +48,7 @@ artifacts/
 *.sln
 *.sw?
 
-# Netlify local state
+
+# Hosting local state
+.vercel/
 .netlify/
