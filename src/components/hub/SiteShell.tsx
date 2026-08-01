@@ -1,4 +1,4 @@
-import { Dna, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
@@ -32,11 +32,8 @@ function SiteHeader() {
       <div className="mx-auto flex min-h-16 max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
         <Link
           to="/"
-          className="flex items-center gap-2.5 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex items-center text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <span className="grid h-9 w-9 place-items-center rounded-md bg-primary text-primary-foreground">
-            <Dna className="h-5 w-5" />
-          </span>
           <span className="font-semibold tracking-tight">Seq Design Buddy</span>
         </Link>
         <nav
