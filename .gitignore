@@ -52,3 +52,4 @@ artifacts/
 # Hosting local state
 .vercel/
 .netlify/
+.vercel
