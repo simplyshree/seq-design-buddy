@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkflowRouteImport } from './routes/workflow'
 import { Route as GlossaryRouteImport } from './routes/glossary'
+import { Route as AnnotationPromptRouteImport } from './routes/annotation-prompt'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsSeqtrainerRouteImport } from './routes/tools.seqtrainer'
 import { Route as ToolsSbolValidatorRouteImport } from './routes/tools.sbol-validator'
@@ -25,6 +26,11 @@ const WorkflowRoute = WorkflowRouteImport.update({
 const GlossaryRoute = GlossaryRouteImport.update({
   id: '/glossary',
   path: '/glossary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnotationPromptRoute = AnnotationPromptRouteImport.update({
+  id: '/annotation-prompt',
+  path: '/annotation-prompt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -55,6 +61,7 @@ const ToolsBenchlabRoute = ToolsBenchlabRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/annotation-prompt': typeof AnnotationPromptRoute
   '/glossary': typeof GlossaryRoute
   '/workflow': typeof WorkflowRoute
   '/tools/benchlab': typeof ToolsBenchlabRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/annotation-prompt': typeof AnnotationPromptRoute
   '/glossary': typeof GlossaryRoute
   '/workflow': typeof WorkflowRoute
   '/tools/benchlab': typeof ToolsBenchlabRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/annotation-prompt': typeof AnnotationPromptRoute
   '/glossary': typeof GlossaryRoute
   '/workflow': typeof WorkflowRoute
   '/tools/benchlab': typeof ToolsBenchlabRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/annotation-prompt'
     | '/glossary'
     | '/workflow'
     | '/tools/benchlab'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/annotation-prompt'
     | '/glossary'
     | '/workflow'
     | '/tools/benchlab'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/annotation-prompt'
     | '/glossary'
     | '/workflow'
     | '/tools/benchlab'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnnotationPromptRoute: typeof AnnotationPromptRoute
   GlossaryRoute: typeof GlossaryRoute
   WorkflowRoute: typeof WorkflowRoute
   ToolsBenchlabRoute: typeof ToolsBenchlabRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/glossary'
       fullPath: '/glossary'
       preLoaderRoute: typeof GlossaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/annotation-prompt': {
+      id: '/annotation-prompt'
+      path: '/annotation-prompt'
+      fullPath: '/annotation-prompt'
+      preLoaderRoute: typeof AnnotationPromptRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnnotationPromptRoute: AnnotationPromptRoute,
   GlossaryRoute: GlossaryRoute,
   WorkflowRoute: WorkflowRoute,
   ToolsBenchlabRoute: ToolsBenchlabRoute,
