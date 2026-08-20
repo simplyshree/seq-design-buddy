@@ -65,6 +65,12 @@ function SiteHeader() {
           >
             Glossary
           </Link>
+          <Link
+            to="/annotation-prompt"
+            className="rounded-md border border-primary/40 bg-primary/5 px-3 py-1.5 font-medium text-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            Get SBOL annotation prompt
+          </Link>
         </nav>
         <a
           href="https://github.com/simplyshree/seq-design-buddy"

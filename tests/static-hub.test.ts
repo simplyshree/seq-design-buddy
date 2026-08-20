@@ -13,6 +13,7 @@ const routeFiles = [
   "src/routes/tools.sbol-canvas.tsx",
   "src/routes/workflow.tsx",
   "src/routes/glossary.tsx",
+  "src/routes/annotation-prompt.tsx",
 ];
 const routeSource = routeFiles.map(read).join("\n");
 const componentSource = [
@@ -155,6 +156,42 @@ test("the focused glossary covers SBOL and workflow vocabulary", () => {
   ]) {
     assert.match(glossary, new RegExp(`"${term}"`));
   }
+});
+
+test("the annotation prompt is a copyable form with required benchmark fields", () => {
+  const prompt = read("src/routes/annotation-prompt.tsx");
+  const shell = read("src/components/hub/SiteShell.tsx");
+  assert.match(shell, /Get SBOL annotation prompt/);
+  assert.match(prompt, /createFileRoute\("\/annotation-prompt"\)/);
+  assert.match(prompt, /Input GenBank file/);
+  assert.match(prompt, /Model bundle folder/);
+  assert.match(prompt, /Validation threshold/);
+  assert.match(prompt, /Annotated GenBank output/);
+  assert.match(prompt, /seqtrainer annotate promoters/);
+  assert.match(read("src/components/hub/CommandBlock.tsx"), /navigator\.clipboard/);
+  assert.match(prompt, /SBOL2 RDF\/XML output/);
+  assert.match(prompt, /Optional benchmark files/);
+  assert.match(prompt, /inputPath: ""/);
+  assert.match(prompt, /modelBundle: ""/);
+  assert.match(prompt, /Example: \{example\}/);
+});
+
+test("long command blocks wrap within their container", () => {
+  const command = read("src/components/hub/CommandBlock.tsx");
+  assert.match(command, /whitespace-pre-wrap/);
+  assert.match(command, /break-words/);
+  assert.doesNotMatch(command, /overflow-x-auto/);
+});
+
+test("the homepage exposes the attached educational guide", () => {
+  const home = read("src/routes/index.tsx");
+  assert.match(home, /View educational guide/);
+  assert.match(home, /seq-trainer-educational-guide\.pptx/);
+  assert.equal(
+    existsSync(resolve(root, "public/seq-trainer-educational-guide.pptx")),
+    true,
+    "the educational guide should be available as a public asset",
+  );
 });
 
 test("build source stays static and credential-free", () => {

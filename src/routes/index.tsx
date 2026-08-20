@@ -5,6 +5,7 @@ import {
   Globe2,
   GraduationCap,
   Link2,
+  Presentation,
   ShieldAlert,
 } from "lucide-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -187,7 +188,7 @@ function HomePage() {
         </div>
       </section>
       <section className="border-t border-border bg-card">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:grid-cols-3">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="flex gap-3">
             <GraduationCap className="h-5 w-5 shrink-0 text-primary" />
             <div>
@@ -226,6 +227,23 @@ function HomePage() {
                 Every external link opens the original repository or official application in a new
                 tab.
               </p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <Presentation className="h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="font-semibold">View the educational guide</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Open the SeqTrainer teaching slides in a new tab.
+              </p>
+              <a
+                href="/seq-trainer-educational-guide.pptx"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="mt-3 inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                View educational guide
+              </a>
             </div>
           </div>
         </div>
