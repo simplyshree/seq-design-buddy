@@ -38,19 +38,19 @@ type FormState = {
 };
 
 const initialForm: FormState = {
-  inputPath: "$env:USERPROFILE\\Downloads\\pAN1717_cyan.gb",
-  modelBundle: "outputs\\models\\dnabert2_kaggle_best",
-  threshold: "0.80",
-  outputPath: "outputs\\annotations\\pAN1717\\annotated.gb",
+  inputPath: "",
+  modelBundle: "",
+  threshold: "",
+  outputPath: "",
   checkpoint: "",
   benchmarkManifest: "",
   windowSize: "",
-  stepSize: "25",
+  stepSize: "",
   mergeDistance: "",
-  predictionsCsv: "outputs\\annotations\\pAN1717\\predictions.csv",
-  manifest: "outputs\\annotations\\pAN1717\\manifest.json",
+  predictionsCsv: "",
+  manifest: "",
   sbolOutput: "",
-  sbol2Output: "outputs\\annotations\\pAN1717\\annotated.rdf",
+  sbol2Output: "",
   scanBothStrands: true,
   preserveExistingFeatures: true,
   cleanOutput: true,
@@ -65,14 +65,14 @@ function powerShellPath(value: string) {
 function buildCommand(form: FormState) {
   const command = [
     "seqtrainer annotate promoters",
-    powerShellPath(form.inputPath),
+    form.inputPath.trim() ? powerShellPath(form.inputPath) : "<input-genbank-path>",
     "--model-family dnabert2",
     "--model-bundle",
-    powerShellPath(form.modelBundle),
+    form.modelBundle.trim() ? powerShellPath(form.modelBundle) : "<model-bundle-path>",
     "--threshold",
-    form.threshold.trim(),
+    form.threshold.trim() || "<validation-threshold>",
     "--output",
-    powerShellPath(form.outputPath),
+    form.outputPath.trim() ? powerShellPath(form.outputPath) : "<annotated-genbank-output>",
   ];
 
   const optionalArguments = [
@@ -129,6 +129,7 @@ function TextField({
   required,
   description,
   placeholder,
+  example,
   type = "text",
 }: {
   label: string;
@@ -137,6 +138,7 @@ function TextField({
   required?: boolean;
   description: string;
   placeholder?: string;
+  example?: string;
   type?: string;
 }) {
   const inputId = `annotation-${label.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-")}`;
@@ -152,6 +154,7 @@ function TextField({
         required={required}
         className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
       />
+      {example && <p className="text-xs leading-5 text-muted-foreground">Example: {example}</p>}
     </Field>
   );
 }
@@ -222,7 +225,7 @@ function AnnotationPromptPage() {
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+      <div className="mx-auto max-w-6xl px-4 py-10">
         <form
           className="space-y-8 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-7"
           onSubmit={(event) => event.preventDefault()}
@@ -234,13 +237,14 @@ function AnnotationPromptPage() {
               produce a useful command.
             </p>
           </div>
-          <div className="grid gap-6">
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             <TextField
               label="Input GenBank file"
               required
               value={form.inputPath}
               onChange={(value) => update("inputPath", value)}
               description="The plasmid .gb file that SeqTrainer will scan."
+              example="$env:USERPROFILE\\Downloads\\pAN1717_cyan.gb"
             />
             <TextField
               label="Model bundle folder"
@@ -248,25 +252,26 @@ function AnnotationPromptPage() {
               value={form.modelBundle}
               onChange={(value) => update("modelBundle", value)}
               description="The trained benchmark bundle containing compatible model files."
+              example="outputs\\models\\dnabert2_kaggle_best"
             />
-            <div className="grid gap-6 sm:grid-cols-2">
-              <TextField
-                label="Validation threshold"
-                required
-                value={form.threshold}
-                onChange={(value) => update("threshold", value)}
-                description="Use the threshold selected on validation data, usually from the benchmark manifest."
-                placeholder="0.80"
-                type="number"
-              />
-              <TextField
-                label="Annotated GenBank output"
-                required
-                value={form.outputPath}
-                onChange={(value) => update("outputPath", value)}
-                description="Where the annotated .gb file will be written."
-              />
-            </div>
+            <TextField
+              label="Validation threshold"
+              required
+              value={form.threshold}
+              onChange={(value) => update("threshold", value)}
+              description="Use the threshold selected on validation data, usually from the benchmark manifest."
+              placeholder="0.80"
+              example="0.80"
+              type="number"
+            />
+            <TextField
+              label="Annotated GenBank output"
+              required
+              value={form.outputPath}
+              onChange={(value) => update("outputPath", value)}
+              description="Where the annotated .gb file will be written."
+              example="outputs\\annotations\\pAN1717\\annotated.gb"
+            />
           </div>
 
           <div className="border-t border-border pt-7">
@@ -274,69 +279,78 @@ function AnnotationPromptPage() {
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               Leave these blank when the model bundle already contains the needed files.
             </p>
-            <div className="mt-6 grid gap-6">
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">
               <TextField
                 label="Separate checkpoint path"
                 value={form.checkpoint}
                 onChange={(value) => update("checkpoint", value)}
                 description="Use this when the trained checkpoint is outside the model bundle."
+                example="outputs\\models\\dnabert2_kaggle_best\\checkpoint.pt"
               />
               <TextField
                 label="Benchmark manifest path"
                 value={form.benchmarkManifest}
                 onChange={(value) => update("benchmarkManifest", value)}
                 description="Records model settings and the validation-selected threshold."
+                example="outputs\\models\\dnabert2_kaggle_best\\manifest.json"
               />
             </div>
           </div>
 
           <div className="border-t border-border pt-7">
             <h2 className="text-xl font-semibold">Scan and output options</h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
               <TextField
                 label="Window size"
                 value={form.windowSize}
                 onChange={(value) => update("windowSize", value)}
                 description="Optional scan window length. The manifest or SeqTrainer default is used when blank."
+                example="300"
               />
               <TextField
                 label="Step size"
                 value={form.stepSize}
                 onChange={(value) => update("stepSize", value)}
                 description="Distance between scan windows, in bases."
+                example="25"
               />
               <TextField
                 label="Merge distance"
                 value={form.mergeDistance}
                 onChange={(value) => update("mergeDistance", value)}
                 description="Optional distance for merging nearby positive windows."
+                example="25"
               />
               <TextField
                 label="Predictions CSV"
                 value={form.predictionsCsv}
                 onChange={(value) => update("predictionsCsv", value)}
                 description="Optional per-window scores and coordinates output."
+                example="outputs\\annotations\\pAN1717\\predictions.csv"
               />
               <TextField
                 label="Annotation manifest"
                 value={form.manifest}
                 onChange={(value) => update("manifest", value)}
                 description="Optional provenance and settings JSON output."
+                example="outputs\\annotations\\pAN1717\\manifest.json"
               />
               <TextField
                 label="SBOL3 output"
                 value={form.sbolOutput}
                 onChange={(value) => update("sbolOutput", value)}
                 description="Optional SBOL3 N-Triples output for later validation."
+                example="outputs\\annotations\\pAN1717\\annotated.nt"
               />
               <TextField
                 label="SBOL2 RDF/XML output"
                 value={form.sbol2Output}
                 onChange={(value) => update("sbol2Output", value)}
                 description="Optional RDF/XML compatibility output for SBOL Canvas import."
+                example="outputs\\annotations\\pAN1717\\annotated.rdf"
               />
             </div>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               <Toggle
                 label="Scan both strands"
                 checked={form.scanBothStrands}
@@ -365,7 +379,7 @@ function AnnotationPromptPage() {
           </div>
         </form>
 
-        <aside className="space-y-5 lg:sticky lg:top-6">
+        <aside className="mt-8 grid gap-5 lg:grid-cols-[0.35fr_1.65fr] lg:items-start">
           <div className="rounded-lg border border-primary/30 bg-primary/5 p-5">
             <div className="flex items-center gap-2 text-sm font-semibold text-primary">
               <Sparkles className="h-4 w-4" aria-hidden="true" />
@@ -375,16 +389,18 @@ function AnnotationPromptPage() {
               Review the command, then use the copy button to move it into PowerShell.
             </p>
           </div>
-          <CommandBlock label="PowerShell command" code={command} />
-          <div className="rounded-lg border border-border bg-card p-5 text-sm leading-6 text-muted-foreground shadow-sm">
-            <div className="flex items-center gap-2 font-semibold text-foreground">
-              <FileOutput className="h-4 w-4 text-primary" aria-hidden="true" />
-              Expected files
+          <div className="space-y-5">
+            <CommandBlock label="PowerShell command" code={command} />
+            <div className="rounded-lg border border-border bg-card p-5 text-sm leading-6 text-muted-foreground shadow-sm">
+              <div className="flex items-center gap-2 font-semibold text-foreground">
+                <FileOutput className="h-4 w-4 text-primary" aria-hidden="true" />
+                Expected files
+              </div>
+              <p className="mt-2">
+                SeqTrainer should write the annotated GenBank file and any optional CSV, manifest,
+                or SBOL outputs you selected. Validate SBOL output before opening it in Canvas.
+              </p>
             </div>
-            <p className="mt-2">
-              SeqTrainer should write the annotated GenBank file and any optional CSV, manifest, or
-              SBOL outputs you selected. Validate SBOL output before opening it in Canvas.
-            </p>
           </div>
         </aside>
       </div>

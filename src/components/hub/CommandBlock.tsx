@@ -22,7 +22,7 @@ export function CommandBlock({ label, code }: { label: string; code: string }) {
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
         </button>
       </div>
-      <pre className="max-h-[26rem] overflow-x-auto p-4 text-xs leading-6">
+      <pre className="max-h-[26rem] overflow-y-auto whitespace-pre-wrap break-words p-4 text-xs leading-6">
         <code>{code}</code>
       </pre>
     </div>
