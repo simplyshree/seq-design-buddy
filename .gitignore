@@ -47,3 +47,9 @@ artifacts/
 *.njsproj
 *.sln
 *.sw?
+
+
+# Hosting local state
+.vercel/
+.netlify/
+.vercel

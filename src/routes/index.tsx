@@ -1,107 +1,253 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Dna, FlaskConical, ShieldCheck, Palette, ArrowRight, Play, Upload, Table2, Settings2, BarChart3, ScanSearch, FileDown, CheckCircle2 } from "lucide-react";
-import { TopNav } from "@/components/workspace/TopNav";
-import { useMock } from "@/lib/mock-state";
+import {
+  ArrowRight,
+  CheckCircle2,
+  FileJson,
+  Globe2,
+  GraduationCap,
+  Link2,
+  Presentation,
+  ShieldAlert,
+} from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteShell } from "@/components/hub/SiteShell";
+import { ToolCard } from "@/components/hub/ToolCard";
+import { BeginnerNote } from "@/components/hub/BeginnerNote";
+import { ScientificWarning } from "@/components/hub/BeginnerNote";
+import { TOOL_SUMMARIES, WORKFLOW_STAGES } from "@/lib/hub-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SeqTrainer Workspace — Home" },
-      { name: "description", content: "Guided workspace for benchmarking DNA sequence models and designing genetic parts." },
-      { property: "og:title", content: "SeqTrainer Workspace" },
-      { property: "og:description", content: "Upload, validate, benchmark, annotate, and export biological sequence designs." },
+      { title: "Seq Design Buddy" },
+      { name: "description", content: "A beginner guide to the SeqTrainer tool ecosystem." },
     ],
   }),
-  component: Index,
+  component: HomePage,
 });
 
-const GOALS = [
-  { title: "Benchmark promoter models", desc: "Compare CNN, DNABERT2, and external tools on labeled data." },
-  { title: "Annotate promoters in a plasmid", desc: "Use a trained model to scan a GenBank file for likely promoters." },
-  { title: "Validate and visualize a design", desc: "Check an SBOL or GenBank file and open it in SBOL Canvas." },
-];
-const TOOLS = [
-  { name: "BenchLab", icon: Table2, desc: "Dataset inspection & experiment setup." },
-  { name: "SeqTrainer", icon: FlaskConical, desc: "Model benchmarking & promoter annotation." },
-  { name: "SBOL Validator", icon: ShieldCheck, desc: "Validate and convert design files." },
-  { name: "SBOL Canvas", icon: Palette, desc: "Visualize and edit genetic designs." },
-];
-const FLOW = [
-  { label: "Upload", icon: Upload }, { label: "Validate", icon: ShieldCheck }, { label: "Inspect", icon: Table2 },
-  { label: "Configure", icon: Settings2 }, { label: "Run", icon: Play }, { label: "Compare", icon: BarChart3 },
-  { label: "Annotate", icon: ScanSearch }, { label: "Export", icon: FileDown }, { label: "Visualize", icon: Palette },
-];
-
-function Index() {
-  const { loadExample } = useMock();
-  const nav = useNavigate();
+function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
-      <TopNav />
-      <main className="mx-auto max-w-6xl px-4 py-8">
-        <div className="grid gap-4 sm:grid-cols-2 mb-8">
-          <Card className="border-primary/40">
-            <CardHeader>
-              <div className="flex items-center gap-2 text-primary text-xs font-medium"><Dna className="h-4 w-4" /> NEW PROJECT</div>
-              <CardTitle>Start a new project</CardTitle>
-              <CardDescription>Choose your goal, file type, and where models will run.</CardDescription>
-            </CardHeader>
-            <CardContent><Button onClick={() => nav({ to: "/new" })}>Start new project <ArrowRight className="h-4 w-4" /></Button></CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium"><CheckCircle2 className="h-4 w-4" /> EXAMPLE</div>
-              <CardTitle>Continue example promoter project</CardTitle>
-              <CardDescription>Pre-loaded with realistic mock data through the annotation step.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button variant="secondary" onClick={() => { loadExample(); nav({ to: "/workspace/compare" }); }}>Open example <ArrowRight className="h-4 w-4" /></Button>
-            </CardContent>
-          </Card>
+    <SiteShell>
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+              A practical guide for students
+            </p>
+            <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+              A beginner guide to the SeqTrainer tool ecosystem
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+              Learn how to prepare a benchmark, annotate possible promoters in a plasmid, validate
+              the resulting design, and view it in SBOL Canvas.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/"
+                hash="tools"
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                Explore the four tools <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/workflow"
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                View the complete workflow
+              </Link>
+            </div>
+          </div>
+          <div className="rounded-lg border border-primary/30 bg-primary/5 p-6">
+            <div className="flex items-start gap-3">
+              <ShieldAlert className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
+              <div>
+                <h2 className="font-semibold">Instructions only</h2>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  This website does not upload files, run models, validate SBOL, provide GPU
+                  resources, connect to HPC, or store experiment results.
+                </p>
+                <p className="mt-4 text-sm font-medium text-foreground">
+                  Your files and models run in the original tools, not on this website.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <section className="mb-8">
-          <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-3">Pick a goal</h2>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {GOALS.map((g) => (
-              <Card key={g.title} className="hover:border-primary/50 transition-colors">
-                <CardHeader><CardTitle className="text-base">{g.title}</CardTitle><CardDescription>{g.desc}</CardDescription></CardHeader>
-              </Card>
-            ))}
+      </section>
+      <section id="tools" className="mx-auto max-w-6xl scroll-mt-8 px-4 py-16">
+        <div className="max-w-2xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+            The ecosystem
+          </p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight">Four tools, four jobs</h2>
+          <p className="mt-3 text-muted-foreground">
+            They are separate applications. Use all four for the full journey, or stop after the
+            tool that answers your question.
+          </p>
+        </div>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {TOOL_SUMMARIES.map((tool) => (
+            <ToolCard key={tool.id} tool={tool} />
+          ))}
+        </div>
+      </section>
+      <section className="border-y border-border bg-muted/30">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                Suggested path
+              </p>
+              <h2 className="mt-2 text-3xl font-semibold tracking-tight">How the tools connect</h2>
+            </div>
+            <Link
+              to="/workflow"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Read the detailed workflow <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-        </section>
-        <section className="mb-8">
-          <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-3">Four tools, one workflow</h2>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {TOOLS.map((t) => (
-              <Card key={t.name}>
-                <CardHeader>
-                  <div className="grid h-9 w-9 place-items-center rounded-md bg-accent text-accent-foreground"><t.icon className="h-4 w-4" /></div>
-                  <CardTitle className="text-sm mt-2">{t.name}</CardTitle>
-                  <CardDescription className="text-xs">{t.desc}</CardDescription>
-                </CardHeader>
-              </Card>
+          <ol className="mt-8 grid gap-4 md:grid-cols-4">
+            {WORKFLOW_STAGES.map((stage, index) => (
+              <li
+                key={stage.number}
+                className="relative rounded-lg border border-border bg-card p-5 shadow-sm"
+              >
+                <span className="font-mono text-sm font-semibold text-primary">{stage.number}</span>
+                <h3 className="mt-3 font-semibold">{stage.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{stage.tool}</p>
+                {index < WORKFLOW_STAGES.length - 1 && (
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="absolute -right-3 top-1/2 z-10 hidden h-5 w-5 -translate-y-1/2 bg-muted/30 text-primary md:block"
+                  />
+                )}
+              </li>
             ))}
+          </ol>
+          <BeginnerNote>
+            <p className="font-semibold">You do not need every stage.</p>
+            <p className="mt-1 text-muted-foreground">
+              A student planning benchmark settings may stop after BenchLab. Someone with an
+              existing checkpoint may begin with SeqTrainer. Someone with an SBOL file may go
+              directly to Validator and Canvas.
+            </p>
+          </BeginnerNote>
+        </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+              File handoffs
+            </p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-tight">
+              What moves between tools?
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              The handoffs happen on your computer or in the original services. Seq Design Buddy
+              only explains what to expect and which file to carry forward.
+            </p>
+            <ScientificWarning>
+              Model training and checkpoint creation happen in SeqTrainer notebooks, Google Colab,
+              or an HPC system. BenchLab does not automatically create a DNABERT2 checkpoint, and a
+              plan-only export may have empty metrics or predictions.
+            </ScientificWarning>
           </div>
-        </section>
-        <section>
-          <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-3">The workflow</h2>
-          <div className="rounded-lg border border-border bg-card p-4 overflow-x-auto">
-            <ol className="flex items-center gap-2 min-w-max">
-              {FLOW.map((s, i) => (
-                <li key={s.label} className="flex items-center gap-2">
-                  <div className="flex items-center gap-1.5 rounded-md border border-border bg-muted/40 px-2.5 py-1.5 text-xs text-foreground">
-                    <s.icon className="h-3.5 w-3.5 text-primary" /> {s.label}
+          <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
+            <ol className="space-y-0">
+              {[
+                ["Labeled CSV/TSV", "SeqTrainer BenchLab"],
+                [
+                  "run_config.json and benchmark bundle",
+                  "External training job or a completed checkpoint",
+                ],
+                [
+                  "SeqTrainer promoter annotation",
+                  "Annotated .gb + predictions.csv + annotation_manifest.json",
+                ],
+                ["Optional SBOL3 .nt export", "SBOL Validator for validation"],
+                ["Optional SBOL2 .rdf compatibility file", "SBOL Canvas import"],
+              ].map(([from, to], index) => (
+                <li key={from} className="relative flex gap-4 pb-6 last:pb-0">
+                  <div className="flex w-5 shrink-0 flex-col items-center">
+                    <span className="mt-1 h-3 w-3 rounded-full bg-primary ring-4 ring-primary/10" />
+                    {index < 4 && <span className="h-full w-px bg-border" />}
                   </div>
-                  {i < FLOW.length - 1 && <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />}
+                  <div>
+                    <p className="text-sm font-semibold">{from}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      <Link2 className="mr-1 inline h-3.5 w-3.5 text-primary" />
+                      {to}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ol>
           </div>
-        </section>
-        <div className="mt-8 text-center"><Link to="/workspace/upload" className="text-sm text-primary hover:underline">Skip intro → go to workspace</Link></div>
-      </main>
-    </div>
+        </div>
+      </section>
+      <section className="border-t border-border bg-card">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="flex gap-3">
+            <GraduationCap className="h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="font-semibold">Learn the vocabulary</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Use the glossary when train, validation, test, checkpoint, or SBOL feels new.
+              </p>
+              <Link
+                to="/glossary"
+                className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
+              >
+                Open glossary
+              </Link>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <FileJson className="h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="font-semibold">Keep artifacts understandable</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Read what each JSON, CSV, manifest, and design file is for.
+              </p>
+              <Link
+                to="/tools/benchlab"
+                className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
+              >
+                See BenchLab outputs
+              </Link>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <Globe2 className="h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="font-semibold">Open the real tools</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Every external link opens the original repository or official application in a new
+                tab.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <Presentation className="h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="font-semibold">View the educational guide</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Open the SeqTrainer teaching slides in a new tab.
+              </p>
+              <a
+                href="/seq-trainer-educational-guide.pptx"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="mt-3 inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                View educational guide
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </SiteShell>
   );
 }

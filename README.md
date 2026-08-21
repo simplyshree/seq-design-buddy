@@ -1,46 +1,37 @@
-# SeqTrainer Workspace
+# Seq Design Buddy
 
-SeqTrainer Workspace is a beginner-friendly orchestration app for DNA sequence model workflows. It connects the journeys of SeqTrainer, SeqTrainer BenchLab, SBOL Validator, and SBOL Canvas without merging those tools into one codebase.
+Seq Design Buddy is a static beginner documentation hub for the SeqTrainer ecosystem. It explains four separate tools and the files that move between them:
 
-The workspace guides a student through:
+1. SeqTrainer BenchLab for dataset inspection and benchmark planning.
+2. SeqTrainer for model workflows and plasmid annotation.
+3. SBOL Validator for checking and converting biological design files.
+4. SBOL Canvas for viewing and editing genetic designs.
 
-```text
-Upload -> Validate -> Inspect -> Configure -> Run -> Compare -> Annotate -> Export -> Visualize -> Reproduce
-```
+The guiding message is simple: Seq Design Buddy explains the workflow and directs you to the correct tool. Your files and models run in the original tools, not on this website.
 
-## How The Tools Connect
+## What this website does not do
 
-- Workspace: project navigation, beginner guidance, artifact tracking, mock workflow, and handoffs.
-- BenchLab: dataset inspection, sequence/label detection, class counts, lightweight local baselines, `run_config.json`, and reproducibility exports.
-- SeqTrainer: model benchmark commands, output parsing, promoter annotation, and SBOL export when supported by the selected source branch.
-- SBOL Validator: server-side validation and conversion for SBOL and related biology formats.
-- SBOL Canvas: separate visual design application opened through a download-and-import handoff.
+- It does not upload, process, or store biological files.
+- It does not run models or provide GPU resources.
+- It does not connect to Colab, an HPC cluster, BenchLab, SeqTrainer, SBOL Validator, or SBOL Canvas.
+- It does not display simulated metrics, validation results, annotation results, or project state.
+- It does not include authentication, a database, an API proxy, a backend runner, or object storage.
 
-## What Runs Where
+External links open the original repository or official application in a new tab. Copy buttons only copy documented commands; they never execute them.
 
-- Local browser: guided UI and deterministic mock workflow.
-- Server-side routes/adapters: upload handling, storage, validation proxying, and service calls.
-- BenchLab service: safe local inspection and capped lightweight runs.
-- Google Colab: GPU-oriented notebook handoffs.
-- HPC: Slurm-oriented, network-free compute jobs after setup.
-- External services: SBOL Validator and SBOL Canvas.
+## Site routes
 
-Heavy GPU training does not run in the Next/TanStack frontend or Cloudflare Worker.
-
-## Supported File Formats
-
-- CSV
-- TSV
-- FASTA
-- GenBank
-- GFF3
-- SBOL XML
-- RDF/XML
-- Turtle
-
-FASTA alone is sequence-only. Supervised classification needs labels from a table or compatible metadata source.
+- `/` - overview, exactly four tool cards, workflow summary, and file handoffs.
+- `/tools/benchlab` - BenchLab setup, small local baselines, plan-only exports, JSON replay order, and outputs.
+- `/tools/seqtrainer` - SeqTrainer annotation prerequisites, dummy smoke command, DNABERT2 command, branch-specific SBOL export, and outputs.
+- `/tools/sbol-validator` - external Validator validation-only and validation-plus-conversion handoff instructions.
+- `/tools/sbol-canvas` - external Canvas import instructions for SBOL2 RDF/XML `.rdf` compatibility files.
+- `/workflow` - four beginner paths plus a static file handoff table.
+- `/glossary` - plain-language reference terms.
 
 ## Development
+
+This repository uses TanStack Start, React, TypeScript, Vite, and Tailwind CSS. No backend or Python runtime is required for the hub itself.
 
 Install dependencies:
 
@@ -48,13 +39,15 @@ Install dependencies:
 bun install
 ```
 
-Run locally:
+Run the local site:
 
 ```bash
 npm run dev
 ```
 
-Build and checks:
+Then open the local URL printed by Vite, usually `http://127.0.0.1:5173/`.
+
+Run the checks:
 
 ```bash
 npm run lint
@@ -62,43 +55,25 @@ npm run build
 npm test
 ```
 
-The current test script uses Node's built-in test runner.
+## Content sources
 
-## Environment Variables
+Instruction content is based on the current source repositories and their documented branches:
 
-```text
-BENCHLAB_BASE_URL=
-BENCHLAB_INTEGRATION_MODE=disabled|mock|remote
-SEQTRAINER_REPO_PATH=
-SEQTRAINER_INTEGRATION_MODE=disabled|instructions|local
-SBOL_VALIDATOR_BASE_URL=
-SBOL_VALIDATOR_MODE=disabled|remote|self_hosted|mock
-SBOL_CANVAS_URL=
-SBOL_CANVAS_MODE=disabled|external|self_hosted
-WORKSPACE_UPLOAD_MAX_BYTES=26214400
-WORKSPACE_TEMP_RETENTION_HOURS=24
-```
+- [SeqTrainer BenchLab](https://github.com/simplyshree/seqtrainer-benchlab), especially `README.md`, `docs/intro_manual.md`, and `docs/reproducible_runs.md`.
+- [SeqTrainer](https://github.com/simplyshree/SeqTrainer), with promoter annotation instructions from `annotation-mvp` and later SBOL3 work referenced from `annotation-sbol3-labeled-promoters`.
+- [SBOL Validator](https://github.com/SynBioDex/SBOL-Validator) and its official site at [validator.sbolstandard.org](https://validator.sbolstandard.org).
+- [SBOL Canvas](https://github.com/SynBioDex/SBOLCanvas) and its official site at [sbolcanvas.org](https://sbolcanvas.org).
 
-Default behavior favors mock or instructions modes until real services are configured and tested.
+When an upstream repository changes, review its current README and relevant documentation before updating the corresponding route. Do not copy personal filesystem paths, invent notebook locations, or imply that a branch contains capabilities it does not contain.
 
-## Data Handling
+## Design and accessibility
 
-- Raw uploads are temporary artifacts, not ordinary project JSON.
-- Project records store checksums, metadata, warnings, provenance, and locations.
-- Runtime storage paths are gitignored.
-- Datasets, model checkpoints, model weights, and user uploads must not be committed.
-- Raw datasets are excluded from reproducibility bundles by default.
-- Predictions are computational predictions, not biological confirmation.
+The hub uses a light scientific interface with high-contrast text, semantic headings, visible focus states, keyboard-accessible links and controls, descriptive external-link labels, readable command blocks, and responsive layouts. The workflow is represented with text and numbered steps, not colour alone.
 
-## Documentation
+## Deployment
 
-Beginner guides live in `docs/beginner/`.
+The existing Vite/TanStack Start deployment stack is preserved. Build with `npm run build`; the generated output remains compatible with the repository's Vercel deployment flow. The hub has no runtime service dependencies and should not require credentials, storage, server functions, or API routes.
 
-The integration audit lives in `docs/integration/source-audit.md`.
+## Limitations
 
-## Current Limitations
-
-- BenchLab, SBOL Validator, and SeqTrainer real adapters are represented by contracts and mock/instructions behavior in this pass.
-- SBOL Canvas is opened as a separate app; no iframe or direct upload API is assumed.
-- Existing CRLF formatting causes lint failures until the repository is normalized.
-- The current TanStack/Lovable build has a pre-existing route manifest failure on this Windows checkout.
+The site is intentionally educational and static. Tool behavior, supported formats, command-line interfaces, branch contents, external website availability, and scientific results belong to the original projects and should be verified there before use.
