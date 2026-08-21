@@ -194,6 +194,13 @@ test("the homepage exposes the attached educational guide", () => {
   );
 });
 
+test("the document head uses the supplied SBOL logo favicon", () => {
+  const rootRoute = read("src/routes/__root.tsx");
+  assert.match(rootRoute, /href: "\/favicon\.png\?v=sbol-20260821"/);
+  assert.match(rootRoute, /type: "image\/png"/);
+  assert.equal(existsSync(resolve(root, "public/favicon.png")), true);
+});
+
 test("build source stays static and credential-free", () => {
   const buildRelevant = [
     "package.json",

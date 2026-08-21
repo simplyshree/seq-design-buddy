@@ -90,7 +90,7 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico?v=blank-20260801", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png?v=sbol-20260821", type: "image/png" },
     ],
   }),
   component: RootComponent,
