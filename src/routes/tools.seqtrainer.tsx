@@ -213,6 +213,17 @@ function SeqTrainerPage() {
             <code className="rounded bg-muted px-1">annotation-sbol3-labeled-promoters</code> branch
             documents validated SBOL export.
           </p>
+          <BeginnerNote>
+            <p>
+              These instructions were checked against the linked fork snapshots:{" "}
+              <code className="rounded bg-muted px-1">annotation-mvp</code> at{" "}
+              <code className="rounded bg-muted px-1">192fa76</code> and{" "}
+              <code className="rounded bg-muted px-1">annotation-sbol3-labeled-promoters</code> at{" "}
+              <code className="rounded bg-muted px-1">d787cfa</code>. They are not the current
+              default branch of the official SynBioDex repository. Re-check the linked fork before
+              running a command if the branch has changed.
+            </p>
+          </BeginnerNote>
           <CommandBlock label="SBOL export branch command" code={sbolCommand} />
           <ul className="space-y-3 text-sm leading-6 text-muted-foreground">
             <li>

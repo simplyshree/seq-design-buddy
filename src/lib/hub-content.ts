@@ -46,7 +46,7 @@ export const TOOL_SUMMARIES: ToolSummary[] = [
     output:
       "Annotated GenBank, predictions CSV, annotation manifest, and branch-specific SBOL files.",
     runs: "Local Python, Google Colab, or HPC, depending on the model.",
-    status: "External Python project; this site only documents commands.",
+    status: "External fork and branch-specific Python project; this site only documents commands.",
     href: "https://github.com/simplyshree/SeqTrainer",
     icon: FlaskConical,
     primary: true,

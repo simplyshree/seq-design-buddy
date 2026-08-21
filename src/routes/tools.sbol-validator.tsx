@@ -135,8 +135,8 @@ function ValidatorPage() {
           <ExternalToolLink href="https://validator.sbolstandard.org">
             Open SBOL Validator
           </ExternalToolLink>
-          <ExternalToolLink href="https://github.com/SynBioDex/SBOL-Validator">
-            View Validator GitHub repository
+          <ExternalToolLink href="https://github.com/SynBioDex/SBOL-Validator/tree/master">
+            View Validator master source
           </ExternalToolLink>
           <ExternalToolLink href="https://synbiodex.github.io/SBOL-Validator/">
             Read Validator API documentation

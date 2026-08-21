@@ -118,8 +118,10 @@ function CanvasPage() {
         </GuideSection>
         <GuideSection title="Run Canvas locally">
           <p className="text-sm leading-7 text-muted-foreground">
-            The official repository contains separate frontend and backend setup instructions.
-            Follow its current README rather than copying commands from an older branch.
+            The official repository's supported standalone deployment is documented on its{" "}
+            <code className="rounded bg-muted px-1">final</code> branch. It contains separate
+            frontend and backend setup instructions. Follow its current README rather than copying
+            commands from an older branch.
           </p>
         </GuideSection>
         <section
@@ -127,8 +129,8 @@ function CanvasPage() {
           aria-label="Official repository and documentation links"
         >
           <ExternalToolLink href="https://sbolcanvas.org">Open SBOL Canvas</ExternalToolLink>
-          <ExternalToolLink href="https://github.com/SynBioDex/SBOLCanvas">
-            View SBOL Canvas GitHub repository
+          <ExternalToolLink href="https://github.com/SynBioDex/SBOLCanvas/tree/final">
+            View SBOL Canvas final source
           </ExternalToolLink>
           <ExternalToolLink href="https://github.com/simplyshree/SeqTrainer/blob/annotation-sbol3-labeled-promoters/docs/annotation/sbol3_export.md">
             Read SeqTrainer Canvas handoff notes

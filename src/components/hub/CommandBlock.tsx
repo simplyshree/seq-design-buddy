@@ -1,12 +1,21 @@
 import { Check, Copy } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 export function CommandBlock({ label, code }: { label: string; code: string }) {
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
+  const statusId = useId();
   const copy = async () => {
-    await navigator.clipboard?.writeText(code);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1500);
+    setCopyFailed(false);
+    try {
+      if (!navigator.clipboard) throw new Error("Clipboard API unavailable");
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+      setCopyFailed(true);
+    }
   };
   return (
     <div className="overflow-hidden rounded-md border border-border bg-slate-950 text-slate-100">
@@ -17,6 +26,7 @@ export function CommandBlock({ label, code }: { label: string; code: string }) {
           onClick={copy}
           title={`Copy ${label}`}
           aria-label={`Copy ${label}`}
+          aria-describedby={statusId}
           className="rounded p-1.5 text-slate-300 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -25,6 +35,9 @@ export function CommandBlock({ label, code }: { label: string; code: string }) {
       <pre className="max-h-[26rem] overflow-y-auto whitespace-pre-wrap break-words p-4 text-xs leading-6">
         <code>{code}</code>
       </pre>
+      <span id={statusId} className="sr-only" aria-live="polite">
+        {copied ? "Command copied." : copyFailed ? "Copy failed. Select the command manually." : ""}
+      </span>
     </div>
   );
 }
