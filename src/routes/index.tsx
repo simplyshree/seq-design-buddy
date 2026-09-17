@@ -234,12 +234,10 @@ function HomePage() {
             <div>
               <h2 className="font-semibold">View the educational guide</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Open the SeqTrainer teaching slides in a new tab.
+                Open the SeqTrainer teaching slides as a PDF in this tab.
               </p>
               <a
-                href="/seq-trainer-educational-guide.pptx"
-                target="_blank"
-                rel="noreferrer noopener"
+                href="/seq-trainer-educational-guide.pdf"
                 className="mt-3 inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 View educational guide
