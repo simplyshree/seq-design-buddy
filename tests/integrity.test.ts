@@ -33,7 +33,7 @@ test("all public guide routes and assets are present", () => {
   ]) {
     assert.equal(existsSync(resolve(root, route)), true, "missing route: " + route);
   }
-  for (const asset of ["public/favicon.png", "public/seq-trainer-educational-guide.pptx"]) {
+  for (const asset of ["public/favicon.png", "public/seq-trainer-educational-guide.pdf"]) {
     assert.equal(existsSync(resolve(root, asset)), true, "missing asset: " + asset);
   }
 });

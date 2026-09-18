@@ -237,7 +237,7 @@ function HomePage() {
                 Open the SeqTrainer teaching slides in a new tab.
               </p>
               <a
-                href="/seq-trainer-educational-guide.pptx"
+                href="/seq-trainer-educational-guide.pdf"
                 target="_blank"
                 rel="noreferrer noopener"
                 className="mt-3 inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

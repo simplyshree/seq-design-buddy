@@ -187,11 +187,13 @@ test("the homepage exposes the attached educational guide", () => {
   const home = read("src/routes/index.tsx");
   const shell = read("src/components/hub/SiteShell.tsx");
   assert.match(home, /View educational guide/);
-  assert.match(home, /seq-trainer-educational-guide\.pptx/);
+  assert.match(home, /seq-trainer-educational-guide\.pdf/);
   assert.match(shell, /Get educational guide/);
-  assert.match(shell, /href="\/seq-trainer-educational-guide\.pptx"/);
+  assert.match(shell, /href="\/seq-trainer-educational-guide\.pdf"/);
+  assert.match(home, /href="\/seq-trainer-educational-guide\.pdf"[\s\S]{0,180}target="_blank"/);
+  assert.match(shell, /href="\/seq-trainer-educational-guide\.pdf"[\s\S]{0,180}target="_blank"/);
   assert.equal(
-    existsSync(resolve(root, "public/seq-trainer-educational-guide.pptx")),
+    existsSync(resolve(root, "public/seq-trainer-educational-guide.pdf")),
     true,
     "the educational guide should be available as a public asset",
   );

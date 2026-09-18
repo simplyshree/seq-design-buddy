@@ -72,7 +72,7 @@ function SiteHeader() {
             Get SBOL annotation prompt
           </Link>
           <a
-            href="/seq-trainer-educational-guide.pptx"
+            href="/seq-trainer-educational-guide.pdf"
             target="_blank"
             rel="noreferrer noopener"
             className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
